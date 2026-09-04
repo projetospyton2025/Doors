@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Doors{% endblock %}
+{% block content %}
+  <div class="page-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Resumo dinâmico das aplicações cadastradas no banco de dados.</p>
+    </div>
+    <div class="toolbar">
+      <a class="icon-button primary" href="/applications" title="Abrir cadastro" aria-label="Abrir cadastro">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+      </a>
+    </div>
+  </div>
+
+  <section class="grid-stats" id="stats-grid" aria-live="polite">
+    <article class="card stat-card total" data-href="/applications">
+      <span class="stat-label">Total de aplicações</span>
+      <strong class="stat-value" data-stat="total">—</strong>
+      <span class="muted">Todos os planos</span>
+    </article>
+    <article class="card stat-card work" data-href="/applications?plan=work">
+      <span class="stat-label">Work</span>
+      <strong class="stat-value" data-stat="work">—</strong>
+      <span class="muted">Plano profissional</span>
+    </article>
+    <article class="card stat-card personal" data-href="/applications?plan=personal">
+      <span class="stat-label">Personal</span>
+      <strong class="stat-value" data-stat="personal">—</strong>
+      <span class="muted">Plano pessoal</span>
+    </article>
+    <article class="card stat-card lotteries" data-href="/applications?plan=lotteries">
+      <span class="stat-label">Lotteries</span>
+      <strong class="stat-value" data-stat="lotteries">—</strong>
+      <span class="muted">Plano de loterias</span>
+    </article>
+    <article class="card stat-card python" data-href="/applications?language=Python">
+      <span class="stat-label">Python</span>
+      <strong class="stat-value" data-stat="python">—</strong>
+      <span class="muted">Linguagem</span>
+    </article>
+    <article class="card stat-card html" data-href="/applications?language=HTML">
+      <span class="stat-label">HTML</span>
+      <strong class="stat-value" data-stat="html">—</strong>
+      <span class="muted">Linguagem</span>
+    </article>
+    <article class="card stat-card docker" data-href="/applications?docker=Sim">
+      <span class="stat-label">Docker = Sim</span>
+      <strong class="stat-value" data-stat="docker_yes">—</strong>
+      <span class="muted">Containerizadas</span>
+    </article>
+    <article class="card stat-card nginx" data-href="/applications?nginx=Sim">
+      <span class="stat-label">Utilizando Nginx</span>
+      <strong class="stat-value" data-stat="nginx_yes">—</strong>
+      <span class="muted">Com endereço Nginx</span>
+    </article>
+  </section>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/dashboard.js"></script>
+{% endblock %}

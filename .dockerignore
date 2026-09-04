@@ -1,0 +1,14 @@
+.git
+.venv
+venv
+__pycache__
+.pytest_cache
+.env
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+exports/*.xlsx
+exports/*.csv
+*.jpg
+PROMPT.txt

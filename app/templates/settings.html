@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Configurações · Doors{% endblock %}
+{% block content %}
+  <div class="page-header">
+    <div>
+      <h1>Configurações</h1>
+      <p>Linguagens disponíveis para o campo LANGUAGE. Python e HTML já vêm do Doors.xlsx.</p>
+    </div>
+  </div>
+  <section class="card">
+    <form id="language-form" class="toolbar" style="margin-bottom:16px">
+      <label class="field" style="flex:1">
+        <span class="sr-only">Nova linguagem</span>
+        <input name="name" maxlength="80" required placeholder="Nova linguagem">
+      </label>
+      <button class="icon-button primary" type="submit" title="Adicionar linguagem" aria-label="Adicionar linguagem">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+      </button>
+    </form>
+    <div class="chip-row" id="language-list"></div>
+  </section>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/settings.js"></script>
+{% endblock %}
