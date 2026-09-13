@@ -359,12 +359,13 @@ table.data-table {
   white-space: nowrap;
 }
 
+.data-table col.col-select { width: 42px; }
 .data-table col.col-plan { width: 8%; }
 .data-table col.col-name { width: 11%; }
-.data-table col.col-path { width: 22%; }
+.data-table col.col-path { width: 21%; }
 .data-table col.col-door { width: 6%; }
 .data-table col.col-language { width: 8%; }
-.data-table col.col-nginx { width: 16%; }
+.data-table col.col-nginx { width: 15%; }
 .data-table col.col-docker { width: 7%; }
 .data-table col.col-github { width: 7%; }
 .data-table col.col-drive { width: 7%; }
@@ -378,6 +379,44 @@ table.data-table {
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
+}
+
+.data-table th.col-select,
+.data-table td.col-select {
+  text-align: center;
+  overflow: visible;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.data-table tbody tr.is-selected,
+.mobile-cards .card.is-selected {
+  background: var(--turquoise-95);
+}
+
+.selection-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+}
+
+.select-all-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.row-check {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--primary-color);
+  cursor: pointer;
 }
 
 .data-table th[data-sort]::after {
@@ -404,6 +443,8 @@ table.data-table {
 .badge.lotteries { background: #fff1e6; color: var(--warning-color); }
 .badge.python { background: #e8f5e9; color: var(--success-color); }
 .badge.html { background: #eef1f4; color: var(--secondary-color); }
+.badge.cpp { background: #e8eaf6; color: #3f51b5; }
+.stat-card.cpp { border-top: 4px solid #3f51b5; }
 .badge.docker-yes { background: var(--turquoise-90); color: var(--turquoise-25); }
 .badge.docker-no { background: #f1f3f5; color: var(--status-neutral); }
 .badge.nginx-yes { background: #e3f2fd; color: var(--status-info); }

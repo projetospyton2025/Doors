@@ -1,0 +1,426 @@
+[
+  {
+    "name": "APIUteis",
+    "path": "I:\\Meu Drive\\apps\\APIUteis",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ApostilaPS",
+    "path": "I:\\Meu Drive\\apps\\ApostilaPS",
+    "door": 2222,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "atendeti",
+    "path": "I:\\Meu Drive\\apps\\atendeti",
+    "door": 5010,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "BackupBanco",
+    "path": "I:\\Meu Drive\\apps\\BackupBanco",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "badges",
+    "path": "I:\\Meu Drive\\apps\\badges",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "BaixarFotosFace",
+    "path": "I:\\Meu Drive\\apps\\BaixarFotosFace",
+    "door": null,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "bat-NSSM",
+    "path": "I:\\Meu Drive\\apps\\bat-NSSM",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "central-regulação",
+    "path": "I:\\Meu Drive\\apps\\central-regulação",
+    "door": 3306,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "Clones&Commits",
+    "path": "I:\\Meu Drive\\apps\\Clones&Commits",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "CoisasDaSaude",
+    "path": "I:\\Meu Drive\\apps\\CoisasDaSaude",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "CompressorDeArquivos",
+    "path": "I:\\Meu Drive\\apps\\CompressorDeArquivos",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ConversorArquivoZip",
+    "path": "I:\\Meu Drive\\apps\\ConversorArquivoZip",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "CSS",
+    "path": "I:\\Meu Drive\\apps\\CSS",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "Equipes_Saude",
+    "path": "I:\\Meu Drive\\apps\\Equipes_Saude",
+    "door": 5000,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "Estagio",
+    "path": "I:\\Meu Drive\\apps\\Estagio",
+    "door": 8080,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "farmaCuidar",
+    "path": "I:\\Meu Drive\\apps\\farmaCuidar",
+    "door": null,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Sim"
+  },
+  {
+    "name": "gifConverter",
+    "path": "I:\\Meu Drive\\apps\\gifConverter",
+    "door": 5555,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "IAAcademy",
+    "path": "I:\\Meu Drive\\apps\\IAAcademy",
+    "door": 5000,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ImageBanner",
+    "path": "I:\\Meu Drive\\apps\\ImageBanner",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ImageButtom",
+    "path": "I:\\Meu Drive\\apps\\ImageButtom",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ImageConverter",
+    "path": "I:\\Meu Drive\\apps\\ImageConverter",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ImageMerge",
+    "path": "I:\\Meu Drive\\apps\\ImageMerge",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ImgDimensoes",
+    "path": "I:\\Meu Drive\\apps\\ImgDimensoes",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ImgFacebookDownloader",
+    "path": "I:\\Meu Drive\\apps\\ImgFacebookDownloader",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ImgInstagranDownloader",
+    "path": "I:\\Meu Drive\\apps\\ImgInstagranDownloader",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "IntegratingJoomlaPython",
+    "path": "I:\\Meu Drive\\apps\\IntegratingJoomlaPython",
+    "door": 5000,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "IntranetSecretariadeSaude",
+    "path": "I:\\Meu Drive\\apps\\IntranetSecretariadeSaude",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "Links-Intranet",
+    "path": "I:\\Meu Drive\\apps\\Links-Intranet",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "MinisterioSaudeEUS",
+    "path": "I:\\Meu Drive\\apps\\MinisterioSaudeEUS",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "n8n",
+    "path": "I:\\Meu Drive\\apps\\n8n",
+    "door": 5678,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "n8nWorkflows",
+    "path": "I:\\Meu Drive\\apps\\n8nWorkflows",
+    "door": 5678,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "NotificacoesTipos",
+    "path": "I:\\Meu Drive\\apps\\NotificacoesTipos",
+    "door": 5009,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "PesquisaSatisfacao",
+    "path": "I:\\Meu Drive\\apps\\PesquisaSatisfacao",
+    "door": 5050,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "PNCPBuscarItens",
+    "path": "I:\\Meu Drive\\apps\\PNCPBuscarItens",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "protocolo",
+    "path": "I:\\Meu Drive\\apps\\protocolo",
+    "door": 5000,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "reminder-task",
+    "path": "I:\\Meu Drive\\apps\\reminder-task",
+    "door": 3306,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "ResumoDiaDeSorte",
+    "path": "I:\\Meu Drive\\apps\\ResumoDiaDeSorte",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "SCP-SistemaControlePatrimonio",
+    "path": "I:\\Meu Drive\\apps\\SCP-SistemaControlePatrimonio",
+    "door": null,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "SIGTAP-Download",
+    "path": "I:\\Meu Drive\\apps\\SIGTAP-Download",
+    "door": null,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "sis_tram",
+    "path": "I:\\Meu Drive\\apps\\sis_tram",
+    "door": 5011,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "SPPE-SistemaParceriaPrefeituraEntidades",
+    "path": "I:\\Meu Drive\\apps\\SPPE-SistemaParceriaPrefeituraEntidades",
+    "door": 5021,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Sim"
+  },
+  {
+    "name": "STID-SistemaTramiteInternoDocumentos",
+    "path": "I:\\Meu Drive\\apps\\STID-SistemaTramiteInternoDocumentos",
+    "door": 5011,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "STP-SistemaTransportePacientes",
+    "path": "I:\\Meu Drive\\apps\\STP-SistemaTransportePacientes",
+    "door": 5000,
+    "language": "Python",
+    "nginx": "http://indicador_backend/;",
+    "docker": "Não"
+  },
+  {
+    "name": "STR",
+    "path": "I:\\Meu Drive\\apps\\STR",
+    "door": 8000,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "teleconsulta_app",
+    "path": "I:\\Meu Drive\\apps\\teleconsulta_app",
+    "door": null,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "TutorialgitHub",
+    "path": "I:\\Meu Drive\\apps\\TutorialgitHub",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "TutorialJoomla",
+    "path": "I:\\Meu Drive\\apps\\TutorialJoomla",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "UAC",
+    "path": "I:\\Meu Drive\\apps\\UAC",
+    "door": 5700,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "UiUx",
+    "path": "I:\\Meu Drive\\apps\\UiUx",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "vetcare",
+    "path": "I:\\Meu Drive\\apps\\vetcare",
+    "door": 8055,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "video_downloader",
+    "path": "I:\\Meu Drive\\apps\\video_downloader",
+    "door": 5012,
+    "language": "Python",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "waha",
+    "path": "I:\\Meu Drive\\apps\\waha",
+    "door": null,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  },
+  {
+    "name": "WampDirFTP",
+    "path": "I:\\Meu Drive\\apps\\WampDirFTP",
+    "door": 14147,
+    "language": "HTML",
+    "nginx": "",
+    "docker": "Não"
+  }
+]

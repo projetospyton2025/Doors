@@ -8,6 +8,7 @@ DOCKER_NO = "Não"
 
 LANGUAGE_PYTHON = "Python"
 LANGUAGE_HTML = "HTML"
+LANGUAGE_CPP = "C++"
 
 EXCEL_PLAN_ALIASES = {
     "work": "work",
@@ -20,6 +21,10 @@ LANGUAGE_ALIASES = {
     "python": LANGUAGE_PYTHON,
     "html": LANGUAGE_HTML,
     "html ": LANGUAGE_HTML,
+    "c++": LANGUAGE_CPP,
+    "cpp": LANGUAGE_CPP,
+    "cplusplus": LANGUAGE_CPP,
+    "c plus plus": LANGUAGE_CPP,
 }
 
 

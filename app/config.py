@@ -43,6 +43,13 @@ class Settings(BaseSettings):
         return candidate
 
     @property
+    def seed_xlsx_path(self) -> Path:
+        populated = BASE_DIR / "Doors-populada.xlsx"
+        if populated.exists():
+            return populated
+        return self.xlsx_path
+
+    @property
     def host_list(self) -> list[str]:
         return [item.strip() for item in self.allowed_hosts.split(",") if item.strip()]
 

@@ -1,7 +1,13 @@
 (() => {
   const loadingBar = document.getElementById("loading-bar");
   const toastStack = document.getElementById("toast-stack");
+  const appRoot = (document.documentElement.getAttribute("data-app-root") || "").replace(/\/$/, "");
   let pending = 0;
+
+  function withRoot(url) {
+    if (!url || !url.startsWith("/") || url.startsWith("//")) return url;
+    return `${appRoot}${url}`;
+  }
 
   function setLoading(on) {
     if (!loadingBar) return;
@@ -23,7 +29,7 @@
   async function request(url, options = {}) {
     setLoading(true);
     try {
-      const response = await fetch(url, {
+      const response = await fetch(withRoot(url), {
         headers: { Accept: "application/json", ...(options.headers || {}) },
         ...options,
       });
@@ -72,5 +78,5 @@
     }
   });
 
-  window.Doors = { request, toast, openOverlay, closeOverlay, setLoading };
+  window.Doors = { request, toast, openOverlay, closeOverlay, setLoading, withRoot, appRoot };
 })();

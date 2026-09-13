@@ -1,0 +1,948 @@
+{
+  "summary": {
+    "AnalisePorPosicao-DiaDeSorte-Only": {
+      "3000": [
+        "config.py"
+      ],
+      "5000": [
+        "config.py",
+        "docs/GERADOR_ESPECIAL_INSTALACAO.txt",
+        "docs/INDICE_GERADOR_ESPECIAL.txt",
+        "prometheus.yml",
+        "templates/central_conferencias-5000.html"
+      ],
+      "5001": [
+        "app.py",
+        "servidor_boloes.py",
+        "templates/central_conferencias-bak.html",
+        "templates/central_conferencias.html"
+      ],
+      "5010": [
+        "README.md"
+      ],
+      "5050": [
+        ".env",
+        "arquivos/mnt_ENDPOINTS_API_COMPLETO.md",
+        "config.py",
+        "routes/analise_cruzamentos_routes.py",
+        "routes/analises_sequenciais_routes.py"
+      ],
+      "5051": [
+        "arquivos/mnt_ENDPOINTS_API_COMPLETO.md",
+        "conferencia_apostas/1165/apostas - Copia.json"
+      ],
+      "5151": [
+        "DIARIAMENTE.bat",
+        "DiaDeSorte-BAK.bat",
+        "DiaDeSorte-NAVEGADOR.bat",
+        "DiaDeSorte.bat",
+        "DiaDeSorte_ANALISES_GERAL.bat",
+        "DiaDeSorte_COMPARADORES.bat",
+        "DiaDeSorte_CONFERIDORES.bat",
+        "DiaDeSorte_ESPECIAL.bat",
+        "DiaDeSorte_FILTRADORES.bat",
+        "DiaDeSorte_GERADORES.bat",
+        "DiaDeSorte_POSICAO.bat",
+        "conferencia_apostas/1214/cobertura.txt",
+        "conferencia_apostas/1227/fonte.txt",
+        "conferencia_apostas/1228/fonte.txt",
+        "conferencia_apostas/1250/apotas.txt",
+        "conferencia_apostas/1286/apostas_.txt",
+        "conferencias-boloes/Analisando.txt",
+        "conferencias-boloes/README.md",
+        "config.py",
+        "docs/COMO APOSTAR.txt",
+        "docs/COMO_DIMINUIR_ABS.md",
+        "docs/Posição.txt",
+        "iniciar_servidores_boloes.bat",
+        "novo 1.txt"
+      ],
+      "5153": [
+        "conferencia_apostas/1227/fonte.txt",
+        "conferencia_apostas/1228/fonte.txt",
+        "conferencia_apostas/1230/fonte.txt",
+        "conferencia_apostas/1244/Gerador Por Concentração.txt",
+        "conferencia_apostas/1250/apotas.txt",
+        "conferencia_apostas/1285/apostas_.txt",
+        "conferencia_apostas/1286/apostas_.txt",
+        "conferencia_apostas/1289/apostas_.txt"
+      ],
+      "5156": [
+        "novo 1.txt"
+      ],
+      "5157": [
+        "novo 1.txt"
+      ],
+      "5158": [
+        "novo 1.txt"
+      ],
+      "5160": [
+        "novo 1.txt"
+      ]
+    },
+    "LoteriasBoloesDaSorte": {
+      "5151": [
+        "extracao-de-boloes/README.md"
+      ],
+      "5575": [
+        "urls_publicas.py"
+      ],
+      "8086": [
+        "Iniciar_BoloesDaSorte_Central.bat",
+        "urls_publicas.py"
+      ]
+    },
+    "LoteriasExtras": {
+      "5001": [
+        "estrategias/lotofacil/README.md"
+      ],
+      "5555": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5556": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5557": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5558": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5559": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5560": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5561": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5562": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5563": [
+        "conferencias/nssm-lotocheck.ps1"
+      ],
+      "5565": [
+        "estrategias/lotofacil/.env",
+        "estrategias/lotteries_config.py"
+      ],
+      "5566": [
+        "estrategias/diadesorte/.env",
+        "estrategias/lotteries_config.py"
+      ],
+      "5567": [
+        "estrategias/lotteries_config.py",
+        "estrategias/quina/.env"
+      ],
+      "5568": [
+        "estrategias/lotteries_config.py",
+        "estrategias/megasena/.env"
+      ],
+      "5569": [
+        "estrategias/lotomania/.env",
+        "estrategias/lotteries_config.py"
+      ],
+      "5570": [
+        "estrategias/lotteries_config.py",
+        "estrategias/timemania/.env"
+      ],
+      "5571": [
+        "estrategias/duplasena/.env",
+        "estrategias/lotteries_config.py"
+      ],
+      "5572": [
+        "estrategias/lotteries_config.py",
+        "estrategias/maismilionaria/.env"
+      ],
+      "5573": [
+        "estrategias/lotteries_config.py",
+        "estrategias/supersete/.env"
+      ],
+      "5574": [
+        "estrategias/lotteries_config.py"
+      ],
+      "5575": [
+        "estrategias/lotteries_config.py"
+      ],
+      "8081": [
+        "conferencias/AnalisePorPosicao-Central/app.py"
+      ],
+      "8084": [
+        "estrategias/Central-Estrategias/app.py",
+        "estrategias/start_dashboard_LoteriasExtras_estrategias-NAVEGADOR.bat"
+      ]
+    },
+    "LoteriasLocaisDaSorte": {
+      "5574": [
+        "LEIA-ME.txt",
+        "urls_publicas.py"
+      ],
+      "8085": [
+        "Iniciar_LocaisDaSorte_Central.bat",
+        "LEIA-ME.txt",
+        "urls_publicas.py"
+      ]
+    },
+    "LoteriasPosicao": {
+      "5022": [
+        "MELHORIAS.txt"
+      ],
+      "5152": [
+        "LoteriasEspeciais.md",
+        "docs/AUDITORIA_IMPRESSAO_CONCENTRACAO.md",
+        "docs/gerar_auditoria_menus_analises_excel.py"
+      ],
+      "5153": [
+        "docs/gerar_auditoria_menus_analises_excel.py"
+      ],
+      "5155": [
+        "LoteriasEspeciais.md"
+      ],
+      "5156": [
+        "LoteriasEspeciais.md"
+      ],
+      "5158": [
+        "AnalisePorPosicao-Central/app.py",
+        "LoteriasEspeciais.md",
+        "_shared/configuracoes/modality_proxy.py",
+        "_shared/configuracoes/public_urls.py",
+        "app.py"
+      ],
+      "5574": [
+        "nssm-servicos.md"
+      ],
+      "5575": [
+        "nssm-servicos.md"
+      ],
+      "8083": [
+        "AnalisePorPosicao--DiaDeSorte-Only/routes/config_routes.py",
+        "_shared/configuracoes/routes_modality.py",
+        "docs/gerar_auditoria_menus_analises_excel.py",
+        "nssm-servicos.md"
+      ],
+      "8085": [
+        "nssm-servicos.md"
+      ],
+      "8086": [
+        "nssm-servicos.md"
+      ]
+    },
+    "LotteryLab": {
+      "5151": [
+        "COMO RODAR.txt"
+      ],
+      "5565": [
+        "lotteries_config.py"
+      ],
+      "5566": [
+        "lotteries_config.py"
+      ],
+      "5567": [
+        "lotteries_config.py"
+      ],
+      "5568": [
+        "lotteries_config.py"
+      ],
+      "5569": [
+        "lotteries_config.py"
+      ],
+      "5570": [
+        "lotteries_config.py"
+      ],
+      "5571": [
+        "lotteries_config.py"
+      ],
+      "5572": [
+        "lotteries_config.py"
+      ],
+      "5573": [
+        "lotteries_config.py"
+      ],
+      "5574": [
+        "lotteries_config.py"
+      ],
+      "5575": [
+        "lotteries_config.py"
+      ],
+      "8082": [
+        "IniciarLotteryLab-NAVEGADOR.bat",
+        "IniciarLotteryLab.bat",
+        "app_conferidor.py"
+      ]
+    },
+    "mega_sena_desdobramento": {
+      "5000": [
+        "README.md",
+        "run.py",
+        "scratch_test.py"
+      ],
+      "5600": [
+        "app.py"
+      ]
+    },
+    "SistemaLoteriasPago": {
+      "5500": [
+        ".env",
+        "index.html",
+        "indexV1.html"
+      ]
+    }
+  },
+  "hits": [
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": ".env",
+      "ports": [
+        5050
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "app.py",
+      "ports": [
+        5001
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "config.py",
+      "ports": [
+        3000,
+        5000,
+        5050,
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte-BAK.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte-NAVEGADOR.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte_ANALISES_GERAL.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte_COMPARADORES.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte_CONFERIDORES.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte_ESPECIAL.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte_FILTRADORES.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte_GERADORES.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DiaDeSorte_POSICAO.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "DIARIAMENTE.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "iniciar_servidores_boloes.bat",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "novo 1.txt",
+      "ports": [
+        5151,
+        5156,
+        5157,
+        5158,
+        5160
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "prometheus.yml",
+      "ports": [
+        5000
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "README.md",
+      "ports": [
+        5010
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "servidor_boloes.py",
+      "ports": [
+        5001
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "arquivos/mnt_ENDPOINTS_API_COMPLETO.md",
+      "ports": [
+        5050,
+        5051
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencias-boloes/Analisando.txt",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencias-boloes/README.md",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1165/apostas - Copia.json",
+      "ports": [
+        5051
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1214/cobertura.txt",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1227/fonte.txt",
+      "ports": [
+        5151,
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1228/fonte.txt",
+      "ports": [
+        5151,
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1230/fonte.txt",
+      "ports": [
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1244/Gerador Por Concentração.txt",
+      "ports": [
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1250/apotas.txt",
+      "ports": [
+        5151,
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1285/apostas_.txt",
+      "ports": [
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1286/apostas_.txt",
+      "ports": [
+        5151,
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "conferencia_apostas/1289/apostas_.txt",
+      "ports": [
+        5153
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "docs/COMO APOSTAR.txt",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "docs/COMO_DIMINUIR_ABS.md",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "docs/GERADOR_ESPECIAL_INSTALACAO.txt",
+      "ports": [
+        5000
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "docs/INDICE_GERADOR_ESPECIAL.txt",
+      "ports": [
+        5000
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "docs/Posição.txt",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "routes/analises_sequenciais_routes.py",
+      "ports": [
+        5050
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "routes/analise_cruzamentos_routes.py",
+      "ports": [
+        5050
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "templates/central_conferencias-5000.html",
+      "ports": [
+        5000
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "templates/central_conferencias-bak.html",
+      "ports": [
+        5001
+      ]
+    },
+    {
+      "app": "AnalisePorPosicao-DiaDeSorte-Only",
+      "file": "templates/central_conferencias.html",
+      "ports": [
+        5001
+      ]
+    },
+    {
+      "app": "LoteriasBoloesDaSorte",
+      "file": "Iniciar_BoloesDaSorte_Central.bat",
+      "ports": [
+        8086
+      ]
+    },
+    {
+      "app": "LoteriasBoloesDaSorte",
+      "file": "urls_publicas.py",
+      "ports": [
+        5575,
+        8086
+      ]
+    },
+    {
+      "app": "LoteriasBoloesDaSorte",
+      "file": "extracao-de-boloes/README.md",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "conferencias/nssm-lotocheck.ps1",
+      "ports": [
+        5555,
+        5556,
+        5557,
+        5558,
+        5559,
+        5560,
+        5561,
+        5562,
+        5563
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "conferencias/AnalisePorPosicao-Central/app.py",
+      "ports": [
+        8081
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/lotteries_config.py",
+      "ports": [
+        5565,
+        5566,
+        5567,
+        5568,
+        5569,
+        5570,
+        5571,
+        5572,
+        5573,
+        5574,
+        5575
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/start_dashboard_LoteriasExtras_estrategias-NAVEGADOR.bat",
+      "ports": [
+        8084
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/Central-Estrategias/app.py",
+      "ports": [
+        8084
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/diadesorte/.env",
+      "ports": [
+        5566
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/duplasena/.env",
+      "ports": [
+        5571
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/lotofacil/.env",
+      "ports": [
+        5565
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/lotofacil/README.md",
+      "ports": [
+        5001
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/lotomania/.env",
+      "ports": [
+        5569
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/maismilionaria/.env",
+      "ports": [
+        5572
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/megasena/.env",
+      "ports": [
+        5568
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/quina/.env",
+      "ports": [
+        5567
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/supersete/.env",
+      "ports": [
+        5573
+      ]
+    },
+    {
+      "app": "LoteriasExtras",
+      "file": "estrategias/timemania/.env",
+      "ports": [
+        5570
+      ]
+    },
+    {
+      "app": "LoteriasLocaisDaSorte",
+      "file": "Iniciar_LocaisDaSorte_Central.bat",
+      "ports": [
+        8085
+      ]
+    },
+    {
+      "app": "LoteriasLocaisDaSorte",
+      "file": "LEIA-ME.txt",
+      "ports": [
+        5574,
+        8085
+      ]
+    },
+    {
+      "app": "LoteriasLocaisDaSorte",
+      "file": "urls_publicas.py",
+      "ports": [
+        5574,
+        8085
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "app.py",
+      "ports": [
+        5158
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "LoteriasEspeciais.md",
+      "ports": [
+        5152,
+        5155,
+        5156,
+        5158
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "MELHORIAS.txt",
+      "ports": [
+        5022
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "nssm-servicos.md",
+      "ports": [
+        5574,
+        5575,
+        8083,
+        8085,
+        8086
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "AnalisePorPosicao--DiaDeSorte-Only/routes/config_routes.py",
+      "ports": [
+        8083
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "AnalisePorPosicao-Central/app.py",
+      "ports": [
+        5158
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "docs/AUDITORIA_IMPRESSAO_CONCENTRACAO.md",
+      "ports": [
+        5152
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "docs/gerar_auditoria_menus_analises_excel.py",
+      "ports": [
+        5152,
+        5153,
+        8083
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "_shared/configuracoes/modality_proxy.py",
+      "ports": [
+        5158
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "_shared/configuracoes/public_urls.py",
+      "ports": [
+        5158
+      ]
+    },
+    {
+      "app": "LoteriasPosicao",
+      "file": "_shared/configuracoes/routes_modality.py",
+      "ports": [
+        8083
+      ]
+    },
+    {
+      "app": "LotteryLab",
+      "file": "app_conferidor.py",
+      "ports": [
+        8082
+      ]
+    },
+    {
+      "app": "LotteryLab",
+      "file": "COMO RODAR.txt",
+      "ports": [
+        5151
+      ]
+    },
+    {
+      "app": "LotteryLab",
+      "file": "IniciarLotteryLab-NAVEGADOR.bat",
+      "ports": [
+        8082
+      ]
+    },
+    {
+      "app": "LotteryLab",
+      "file": "IniciarLotteryLab.bat",
+      "ports": [
+        8082
+      ]
+    },
+    {
+      "app": "LotteryLab",
+      "file": "lotteries_config.py",
+      "ports": [
+        5565,
+        5566,
+        5567,
+        5568,
+        5569,
+        5570,
+        5571,
+        5572,
+        5573,
+        5574,
+        5575
+      ]
+    },
+    {
+      "app": "mega_sena_desdobramento",
+      "file": "app.py",
+      "ports": [
+        5600
+      ]
+    },
+    {
+      "app": "mega_sena_desdobramento",
+      "file": "README.md",
+      "ports": [
+        5000
+      ]
+    },
+    {
+      "app": "mega_sena_desdobramento",
+      "file": "run.py",
+      "ports": [
+        5000
+      ]
+    },
+    {
+      "app": "mega_sena_desdobramento",
+      "file": "scratch_test.py",
+      "ports": [
+        5000
+      ]
+    },
+    {
+      "app": "SistemaLoteriasPago",
+      "file": ".env",
+      "ports": [
+        5500
+      ]
+    },
+    {
+      "app": "SistemaLoteriasPago",
+      "file": "index.html",
+      "ports": [
+        5500
+      ]
+    },
+    {
+      "app": "SistemaLoteriasPago",
+      "file": "indexV1.html",
+      "ports": [
+        5500
+      ]
+    }
+  ]
+}

@@ -17,6 +17,9 @@
       <button class="icon-button ghost" id="btn-export-xlsx" type="button" title="Exportar Excel" aria-label="Exportar Excel">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path><path d="M12 15V3"></path></svg>
       </button>
+      <button class="icon-button danger" id="btn-bulk-delete" type="button" disabled title="Excluir selecionadas" aria-label="Excluir selecionadas">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path></svg>
+      </button>
       <button class="icon-button primary" id="btn-add" type="button" title="Nova aplicação" aria-label="Nova aplicação">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
       </button>
@@ -41,15 +44,25 @@
     <div class="chip-row" aria-label="Filtros rápidos">
       <button class="chip" type="button" data-filter="language" data-value="Python">Python</button>
       <button class="chip" type="button" data-filter="language" data-value="HTML">HTML</button>
+      <button class="chip" type="button" data-filter="language" data-value="C++">C++</button>
       <button class="chip" type="button" data-filter="docker" data-value="Sim">Docker = Sim</button>
       <button class="chip" type="button" data-filter="docker" data-value="Não">Docker = Não</button>
       <button class="chip" type="button" data-filter="nginx" data-value="Sim">Nginx preenchido</button>
     </div>
   </div>
 
+  <div class="selection-bar" aria-label="Seleção">
+    <label class="select-all-label">
+      <input class="row-check select-all" type="checkbox" aria-label="Selecionar todas da página">
+      <span>Selecionar página</span>
+    </label>
+    <p class="muted" id="selection-count">Nenhuma selecionada</p>
+  </div>
+
   <div class="table-wrap desktop-table">
     <table class="data-table" id="apps-table">
       <colgroup>
+        <col class="col-select">
         <col class="col-plan">
         <col class="col-name">
         <col class="col-path">
@@ -63,6 +76,9 @@
       </colgroup>
       <thead>
         <tr>
+          <th class="col-select">
+            <input class="row-check select-all" type="checkbox" aria-label="Selecionar todas da página">
+          </th>
           <th data-sort="plan">Plano</th>
           <th data-sort="app_name">App Name</th>
           <th data-sort="path">Path</th>
@@ -174,7 +190,7 @@
   <div class="overlay" id="delete-overlay" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-title">
       <div class="modal-header">
-        <h2 id="delete-title">Excluir aplicação</h2>
+        <h2 id="delete-title">Excluir aplicações</h2>
         <button class="icon-button ghost" type="button" data-close="delete-overlay" title="Fechar" aria-label="Fechar">✕</button>
       </div>
       <div class="modal-body">
@@ -190,5 +206,5 @@
   </div>
 {% endblock %}
 {% block scripts %}
-  <script src="/static/js/applications.js?v=2"></script>
+  <script src="{{ app_root }}/static/js/applications.js?v=5"></script>
 {% endblock %}

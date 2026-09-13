@@ -4,33 +4,38 @@ from fastapi.templating import Jinja2Templates
 
 from app.config import BASE_DIR
 from app.utils.constants import PLANS
+from app.utils.prefix import resolve_prefix
 
 templates = Jinja2Templates(directory=str(BASE_DIR / "app" / "templates"))
 router = APIRouter()
 
 
-@router.get("/", response_class=HTMLResponse)
+def _page_context(request: Request, **extra) -> dict:
+    return {"app_root": resolve_prefix(request), **extra}
+
+
+@router.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
 def dashboard_page(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request,
         "dashboard.html",
-        {"page": "dashboard", "plans": PLANS},
+        _page_context(request, page="dashboard", plans=PLANS),
     )
 
 
-@router.get("/applications", response_class=HTMLResponse)
+@router.api_route("/applications", methods=["GET", "HEAD"], response_class=HTMLResponse)
 def applications_page(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request,
         "applications.html",
-        {"page": "applications", "plans": PLANS},
+        _page_context(request, page="applications", plans=PLANS),
     )
 
 
-@router.get("/settings", response_class=HTMLResponse)
+@router.api_route("/settings", methods=["GET", "HEAD"], response_class=HTMLResponse)
 def settings_page(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request,
         "settings.html",
-        {"page": "settings", "plans": PLANS},
+        _page_context(request, page="settings", plans=PLANS),
     )

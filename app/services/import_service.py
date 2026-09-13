@@ -9,6 +9,7 @@ from app.utils.constants import EXCEL_PLAN_ALIASES
 from app.utils.validators import ValidationError
 
 PLACEHOLDERS = {"", "selecione", None}
+LOTTERY_SHEETS = {"loterries", "lotteries"}
 
 
 class ImportService:
@@ -21,7 +22,7 @@ class ImportService:
         skipped = 0
         errors: list[str] = []
 
-        for sheet_name in workbook.sheetnames:
+        for sheet_name in self._sheet_order(workbook.sheetnames):
             if sheet_name.strip().upper() == "DADOS":
                 continue
             plan_key = EXCEL_PLAN_ALIASES.get(sheet_name.strip().lower())
@@ -38,12 +39,18 @@ class ImportService:
                 if self._empty(app_name) and self._empty(path_value) and self._empty(door):
                     skipped += 1
                     continue
+                if self._empty(door):
+                    skipped += 1
+                    continue
+                if self._door_taken(door):
+                    skipped += 1
+                    continue
                 try:
                     self.service.create(
                         ApplicationCreate(
                             app_name=str(app_name or ""),
                             path=str(path_value or ""),
-                            door=door if door is not None else "",
+                            door=door,
                             language=str(language or ""),
                             nginx=None if self._empty(nginx) else str(nginx),
                             docker=str(docker or ""),
@@ -57,6 +64,18 @@ class ImportService:
                     errors.append(f"{sheet_name}: {exc}")
                     skipped += 1
         return {"created": created, "skipped": skipped, "errors": errors}
+
+    def _sheet_order(self, sheetnames: list[str]) -> list[str]:
+        lottery = [name for name in sheetnames if name.strip().lower() in LOTTERY_SHEETS]
+        others = [name for name in sheetnames if name.strip().lower() not in LOTTERY_SHEETS]
+        return lottery + others
+
+    def _door_taken(self, door: object) -> bool:
+        try:
+            door_int = int(str(door).strip())
+        except (TypeError, ValueError):
+            return False
+        return self.service.applications.get_by_door(door_int) is not None
 
     def _empty(self, value: object) -> bool:
         if value is None:

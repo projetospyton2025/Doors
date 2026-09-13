@@ -12,7 +12,7 @@ Os dados são gravados em banco relacional (SQLite por padrão). Reiniciar o com
 | APP NAME | texto | sim | input | Nome da aplicação |
 | PATH | texto | sim | input | Caminho Windows/Linux do projeto |
 | DOOR | inteiro 1–65535 | sim | number | Porta única em todo o sistema |
-| LANGUAGE | lista | sim | select | Lista inicial: Python e HTML (aba `DADOS`) |
+| LANGUAGE | lista | sim | select | Lista: Python, HTML e C++ (aba `DADOS`) |
 | NGINX | texto/URL | não | input | No Excel é endereço, não Sim/Não |
 | DOCKER | Sim / Não | sim | switch | Lista da aba `DADOS` |
 | ACCOUNT → GITHUB | texto/URL | não | input | Subcoluna de ACCOUNT |
@@ -20,7 +20,7 @@ Os dados são gravados em banco relacional (SQLite por padrão). Reiniciar o com
 | id | inteiro | automático | oculto | Campo técnico |
 | created_at / updated_at | data/hora | automático | oculto | Campos técnicos |
 
-O único registro existente no Excel (`AudioTo-txt`, porta `5222`, plano Work) é importado automaticamente na primeira inicialização.
+A carga inicial usa `Doors-populada.xlsx` quando o arquivo existe (senão `Doors.xlsx`). Linhas sem porta são ignoradas. Portas já gravadas no banco não são sobrescritas. Depois da carga, o SQLite em `data/doors.db` é a fonte da verdade: reiniciar o app, o navegador ou o Docker não apaga os registros.
 
 ## Requisitos
 
@@ -39,7 +39,9 @@ copy .env.example .env
 python app.py
 ```
 
-Abra [http://127.0.0.1:5333](http://127.0.0.1:5333). A porta **5333** está reservada para este sistema.
+Abra [http://127.0.0.1:5333](http://127.0.0.1:5333) ou [http://127.0.0.1:5333/doors/](http://127.0.0.1:5333/doors/). A porta **5333** está reservada para este sistema.
+
+Pelo nginx: [http://127.0.0.1/doors/](http://127.0.0.1/doors/) e [https://marciofernandomaia.com.br/doors/](https://marciofernandomaia.com.br/doors/).
 
 O arquivo SQLite fica em `data/doors.db`.
 

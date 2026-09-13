@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Equipes_Saude",
+    "path": "D:\\Projetos\\python\\Equipes_Saude",
+    "door": 5000,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "Estagio",
+    "path": "D:\\Projetos\\python\\Estagio",
+    "door": 8080,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "farmaCuidar",
+    "path": "D:\\Projetos\\python\\farmaCuidar",
+    "door": null,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Sim"
+  },
+  {
+    "name": "gifConverter",
+    "path": "D:\\Projetos\\python\\gifConverter",
+    "door": 5555,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "protocolo",
+    "path": "D:\\Projetos\\python\\protocolo",
+    "door": null,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "SCP-SistemaControlePatrimonio",
+    "path": "D:\\Projetos\\python\\SCP-SistemaControlePatrimonio",
+    "door": 587,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "sis_tram_ok",
+    "path": "D:\\Projetos\\python\\sis_tram_ok",
+    "door": 5011,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "SPPE-SistemaParceriaPrefeituraEntidades",
+    "path": "D:\\Projetos\\python\\SPPE-SistemaParceriaPrefeituraEntidades",
+    "door": 5021,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Sim"
+  },
+  {
+    "name": "STID-SistemaTramiteInternoDocumentos",
+    "path": "D:\\Projetos\\python\\STID-SistemaTramiteInternoDocumentos",
+    "door": 5011,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "STP-SistemaTransportePacientes",
+    "path": "D:\\Projetos\\python\\STP-SistemaTransportePacientes",
+    "door": 5000,
+    "language": "Python",
+    "nginx": "esus.cosmopolis.sp.gov.br",
+    "docker": "Não"
+  },
+  {
+    "name": "teleconsulta_app",
+    "path": "D:\\Projetos\\python\\teleconsulta_app",
+    "door": 5080,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "terceiro_setor",
+    "path": "D:\\Projetos\\python\\terceiro_setor",
+    "door": 5063,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "UAC",
+    "path": "D:\\Projetos\\python\\UAC",
+    "door": 5700,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "vetcare",
+    "path": "D:\\Projetos\\python\\vetcare",
+    "door": 8055,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "video_downloader",
+    "path": "D:\\Projetos\\python\\video_downloader",
+    "door": 5012,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  },
+  {
+    "name": "waha",
+    "path": "D:\\Projetos\\python\\waha",
+    "door": 5000,
+    "language": "Python",
+    "nginx": null,
+    "docker": "Não"
+  }
+]

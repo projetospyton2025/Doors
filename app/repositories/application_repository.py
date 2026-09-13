@@ -1,4 +1,4 @@
-from sqlalchemy import Select, String, and_, func, or_, select
+from sqlalchemy import Select, String, and_, delete, func, or_, select
 from sqlalchemy.orm import Session
 
 from app.models.application import Application
@@ -134,6 +134,12 @@ class ApplicationRepository:
 
     def delete(self, application: Application) -> None:
         self.db.delete(application)
+
+    def delete_by_ids(self, ids: list[int]) -> int:
+        if not ids:
+            return 0
+        result = self.db.execute(delete(Application).where(Application.id.in_(ids)))
+        return result.rowcount or 0
 
     def count_all(self) -> int:
         return self.db.scalar(select(func.count(Application.id))) or 0

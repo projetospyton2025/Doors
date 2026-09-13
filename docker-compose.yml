@@ -7,7 +7,7 @@ services:
       DEBUG: "false"
       APP_SECRET_KEY: ${APP_SECRET_KEY:-altere-esta-chave-em-producao}
       DATABASE_URL: sqlite:////app/data/doors.db
-      DOORS_XLSX_PATH: /app/Doors.xlsx
+      DOORS_XLSX_PATH: /app/Doors-populada.xlsx
       ALLOWED_HOSTS: "*"
       APP_HOST: 0.0.0.0
       APP_PORT: "5333"

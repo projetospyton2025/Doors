@@ -1,0 +1,4 @@
+ajuste os caminhos/endereços das  app no arquivo H:\Meu Drive\ProjetosPython\Doors\Doors-populada.xlsx
+.
+D:\Proxy_\nginx-1.30.4\conf\nginx.conf
+D:\Proxy_\nginx-1.30.4\servers\*.conf

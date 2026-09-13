@@ -1,5 +1,3 @@
-from sqlalchemy import func, select
-
 from app.config import BASE_DIR, get_settings
 from app.database import session as db_session
 from app.models import Application, Language  # noqa: F401
@@ -8,7 +6,7 @@ from app.repositories.language_repository import LanguageRepository
 from app.schemas.application import ApplicationCreate
 from app.services.application_service import ApplicationService
 from app.services.import_service import ImportService
-from app.utils.constants import LANGUAGE_HTML, LANGUAGE_PYTHON
+from app.utils.constants import LANGUAGE_CPP, LANGUAGE_HTML, LANGUAGE_PYTHON
 from app.utils.validators import ValidationError
 
 
@@ -24,14 +22,13 @@ def init_db() -> None:
         languages = LanguageRepository(db)
         languages.ensure(LANGUAGE_PYTHON)
         languages.ensure(LANGUAGE_HTML)
+        languages.ensure(LANGUAGE_CPP)
         db.commit()
 
-        has_records = (db.scalar(select(func.count(Application.id))) or 0) > 0
-        xlsx = settings.xlsx_path
-        if not has_records and xlsx.exists():
-            ImportService(db).import_xlsx(xlsx)
-            db.commit()
         if settings.app_env != "test":
+            seed = settings.seed_xlsx_path
+            if seed.exists():
+                ImportService(db).import_xlsx(seed)
             _ensure_self_application(db, settings.app_port)
     finally:
         db.close()

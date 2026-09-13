@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+{% set _pfx = app_root if app_root is defined else (request.headers.get('x-forwarded-prefix') or '') %}
+{% set app_root = _pfx[:-1] if _pfx.endswith('/') else _pfx %}
+<html lang="pt-BR" data-app-root="{{ app_root }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Doors{% endblock %}</title>
-  <link rel="stylesheet" href="/static/css/tokens.css?v=2">
-  <link rel="stylesheet" href="/static/css/app.css?v=2">
+  <link rel="stylesheet" href="{{ app_root }}/static/css/tokens.css?v=5">
+  <link rel="stylesheet" href="{{ app_root }}/static/css/app.css?v=5">
 </head>
 <body>
   <div class="loading-bar" id="loading-bar" hidden></div>
   <div class="app-shell">
     <header class="topbar">
       <div class="topbar-inner">
-        <a class="brand" href="/">
+        <a class="brand" href="{{ app_root }}/">
           <span class="brand-mark" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="4" y="3" width="16" height="18" rx="2"></rect>
@@ -25,7 +27,7 @@
           </span>
         </a>
         <nav class="nav" aria-label="Principal">
-          <a class="nav-link {% if page == 'dashboard' %}is-active{% endif %}" href="/" title="Dashboard" aria-label="Dashboard">
+          <a class="nav-link {% if page == 'dashboard' %}is-active{% endif %}" href="{{ app_root }}/" title="Dashboard" aria-label="Dashboard">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="3" width="7" height="9"></rect>
               <rect x="14" y="3" width="7" height="5"></rect>
@@ -33,12 +35,12 @@
               <rect x="3" y="16" width="7" height="5"></rect>
             </svg>
           </a>
-          <a class="nav-link {% if page == 'applications' %}is-active{% endif %}" href="/applications" title="Aplicações" aria-label="Aplicações">
+          <a class="nav-link {% if page == 'applications' %}is-active{% endif %}" href="{{ app_root }}/applications" title="Aplicações" aria-label="Aplicações">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M4 6h16M4 12h16M4 18h10"></path>
             </svg>
           </a>
-          <a class="nav-link {% if page == 'settings' %}is-active{% endif %}" href="/settings" title="Configurações" aria-label="Configurações">
+          <a class="nav-link {% if page == 'settings' %}is-active{% endif %}" href="{{ app_root }}/settings" title="Configurações" aria-label="Configurações">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9c.3.7.9 1.2 1.5 1.3H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1z"></path>
@@ -52,7 +54,7 @@
     </main>
   </div>
   <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
-  <script src="/static/js/app.js"></script>
+  <script src="{{ app_root }}/static/js/app.js?v=4"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

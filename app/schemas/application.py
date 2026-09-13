@@ -72,6 +72,7 @@ class DashboardStats(BaseModel):
     lotteries: int
     python: int
     html: int
+    cpp: int
     docker_yes: int
     nginx_yes: int
 
@@ -85,6 +86,15 @@ class PaginatedApplications(BaseModel):
 
 
 class MessageOut(BaseModel):
+    message: str
+
+
+class BulkDeleteIn(BaseModel):
+    ids: list[int] = Field(..., min_length=1, max_length=200)
+
+
+class BulkDeleteOut(BaseModel):
+    deleted: int
     message: str
 
 

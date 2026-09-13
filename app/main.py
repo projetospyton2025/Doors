@@ -13,6 +13,7 @@ from app.config import BASE_DIR, get_settings
 from app.database.init_db import init_db
 from app.database.session import init_engine
 from app.routes import router
+from app.utils.prefix import PUBLIC_PREFIX, resolve_prefix
 
 
 @asynccontextmanager
@@ -38,10 +39,27 @@ def create_app() -> FastAPI:
     if settings.host_list and settings.host_list != ["*"]:
         application.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.host_list)
 
-    application.mount("/static", StaticFiles(directory=str(BASE_DIR / "app" / "static")), name="static")
+    static_dir = str(BASE_DIR / "app" / "static")
+    application.mount("/static", StaticFiles(directory=static_dir), name="static")
+    for prefix in (PUBLIC_PREFIX, "/Doors"):
+        slug = "doors" if prefix.lower() == PUBLIC_PREFIX else "doors_alias"
+        application.mount(f"{prefix}/static", StaticFiles(directory=static_dir), name=f"{slug}_static")
+        application.include_router(router, prefix=prefix, include_in_schema=False)
     application.include_router(router)
 
-    @application.get("/health")
+    @application.middleware("http")
+    async def attach_public_prefix(request: Request, call_next):
+        prefix = resolve_prefix(request)
+        request.state.app_root = prefix
+        response = await call_next(request)
+        location = response.headers.get("location")
+        if prefix and location and location.startswith("/") and not location.startswith("//") and not location.startswith(prefix):
+            response.headers["location"] = prefix + location
+        return response
+
+    @application.api_route("/health", methods=["GET", "HEAD"])
+    @application.api_route(f"{PUBLIC_PREFIX}/health", methods=["GET", "HEAD"])
+    @application.api_route("/Doors/health", methods=["GET", "HEAD"])
     def health() -> dict[str, str]:
         return {"status": "ok"}
 

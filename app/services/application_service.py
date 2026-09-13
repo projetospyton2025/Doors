@@ -15,7 +15,7 @@ from app.schemas.application import (
     LanguageOut,
     PaginatedApplications,
 )
-from app.utils.constants import LANGUAGE_HTML, LANGUAGE_PYTHON, PLAN_LABELS, Plan
+from app.utils.constants import LANGUAGE_CPP, LANGUAGE_HTML, LANGUAGE_PYTHON, PLAN_LABELS, Plan
 from app.utils.validators import (
     ValidationError,
     docker_label,
@@ -175,6 +175,16 @@ class ApplicationService:
         self.applications.delete(item)
         self.db.commit()
 
+    def delete_many(self, ids: list[int]) -> int:
+        unique_ids = list(dict.fromkeys(item for item in ids if item > 0))
+        if not unique_ids:
+            raise ValidationError("ids", "Selecione ao menos uma aplicação.")
+        deleted = self.applications.delete_by_ids(unique_ids)
+        if deleted == 0:
+            raise LookupError("Nenhuma aplicação encontrada.")
+        self.db.commit()
+        return deleted
+
     def dashboard(self) -> DashboardStats:
         return DashboardStats(
             total=self.applications.count_all(),
@@ -183,6 +193,7 @@ class ApplicationService:
             lotteries=self.applications.count_by_plan(Plan.LOTTERIES.value),
             python=self.applications.count_by_language(LANGUAGE_PYTHON),
             html=self.applications.count_by_language(LANGUAGE_HTML),
+            cpp=self.applications.count_by_language(LANGUAGE_CPP),
             docker_yes=self.applications.count_docker(True),
             nginx_yes=self.applications.count_nginx(),
         )

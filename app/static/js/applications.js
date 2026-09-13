@@ -9,7 +9,9 @@
     order: "asc",
     page: 1,
     pageSize: 10,
-    deleteId: null,
+    items: [],
+    selected: new Map(),
+    pendingDelete: [],
   };
 
   const body = document.getElementById("apps-body");
@@ -58,6 +60,12 @@
       .replaceAll('"', "&quot;");
   }
 
+  function languageClass(name) {
+    const raw = String(name || "").toLowerCase();
+    if (raw === "c++") return "cpp";
+    return raw.replace(/[^a-z0-9-]+/g, "");
+  }
+
   function actionButtons(item) {
     return `
       <div class="cell-actions">
@@ -74,19 +82,70 @@
     `;
   }
 
+  function rowCheckbox(item) {
+    const checked = state.selected.has(item.id) ? "checked" : "";
+    return `<input class="row-check row-select" type="checkbox" data-id="${item.id}" data-name="${escapeHtml(item.app_name)}" ${checked} aria-label="Selecionar ${escapeHtml(item.app_name)}">`;
+  }
+
+  function syncSelectionUi() {
+    const count = state.selected.size;
+    const visibleIds = state.items.map((item) => item.id);
+    const selectedVisible = visibleIds.filter((id) => state.selected.has(id)).length;
+    const bulkBtn = document.getElementById("btn-bulk-delete");
+    const countLabel = document.getElementById("selection-count");
+    bulkBtn.disabled = count === 0;
+    bulkBtn.title = count ? `Excluir ${count} selecionada(s)` : "Excluir selecionadas";
+    bulkBtn.setAttribute("aria-label", bulkBtn.title);
+    countLabel.textContent = count
+      ? `${count} selecionada(s)`
+      : "Nenhuma selecionada";
+    document.querySelectorAll(".select-all").forEach((box) => {
+      box.checked = visibleIds.length > 0 && selectedVisible === visibleIds.length;
+      box.indeterminate = selectedVisible > 0 && selectedVisible < visibleIds.length;
+    });
+    document.querySelectorAll("tr[data-id], article.card[data-id]").forEach((node) => {
+      node.classList.toggle("is-selected", state.selected.has(Number(node.dataset.id)));
+    });
+  }
+
+  function setSelected(id, name, on) {
+    if (on) state.selected.set(id, name);
+    else state.selected.delete(id);
+    document.querySelectorAll(`.row-select[data-id="${id}"]`).forEach((box) => {
+      box.checked = on;
+    });
+  }
+
+  function openDeleteConfirm(items) {
+    state.pendingDelete = items;
+    const text = document.getElementById("delete-text");
+    const title = document.getElementById("delete-title");
+    if (items.length === 1) {
+      title.textContent = "Excluir aplicação";
+      text.textContent = `Excluir definitivamente "${items[0].name}"?`;
+    } else {
+      title.textContent = "Excluir aplicações";
+      text.textContent = `Excluir definitivamente ${items.length} aplicações? Esta ação não pode ser desfeita.`;
+    }
+    window.Doors.openOverlay("delete-overlay");
+  }
+
   function renderItems(items) {
+    state.items = items;
     if (!items.length) {
-      body.innerHTML = `<tr><td colspan="10"><div class="empty-state">Nenhum registro encontrado.</div></td></tr>`;
+      body.innerHTML = `<tr><td colspan="11"><div class="empty-state">Nenhum registro encontrado.</div></td></tr>`;
       cards.innerHTML = `<div class="card empty-state">Nenhum registro encontrado.</div>`;
+      syncSelectionUi();
       return;
     }
     body.innerHTML = items.map((item) => `
-      <tr>
+      <tr data-id="${item.id}" class="${state.selected.has(item.id) ? "is-selected" : ""}">
+        <td class="col-select">${rowCheckbox(item)}</td>
         <td title="${escapeHtml(item.plan_label)}"><span class="badge ${escapeHtml(item.plan)}">${escapeHtml(item.plan_label)}</span></td>
         <td title="${escapeHtml(item.app_name)}">${escapeHtml(item.app_name)}</td>
         <td title="${escapeHtml(item.path)}">${escapeHtml(item.path)}</td>
         <td title="${escapeHtml(item.door)}">${escapeHtml(item.door)}</td>
-        <td title="${escapeHtml(item.language)}"><span class="badge ${escapeHtml(item.language).toLowerCase()}">${escapeHtml(item.language)}</span></td>
+        <td title="${escapeHtml(item.language)}"><span class="badge ${languageClass(item.language)}">${escapeHtml(item.language)}</span></td>
         <td title="${escapeHtml(item.nginx || "")}">${item.nginx ? `<a href="${escapeHtml(item.nginx)}" target="_blank" rel="noopener">${escapeHtml(item.nginx)}</a>` : "—"}</td>
         <td title="${escapeHtml(item.docker)}"><span class="badge ${item.uses_docker ? "docker-yes" : "docker-no"}">${escapeHtml(item.docker)}</span></td>
         <td title="${escapeHtml(item.github || "")}">${item.github ? escapeHtml(item.github) : "—"}</td>
@@ -96,9 +155,12 @@
     `).join("");
 
     cards.innerHTML = items.map((item) => `
-      <article class="card">
+      <article class="card ${state.selected.has(item.id) ? "is-selected" : ""}" data-id="${item.id}">
         <div class="toolbar" style="justify-content:space-between">
-          <strong>${escapeHtml(item.app_name)}</strong>
+          <label class="select-all-label">
+            ${rowCheckbox(item)}
+            <strong>${escapeHtml(item.app_name)}</strong>
+          </label>
           <span class="badge ${escapeHtml(item.plan)}">${escapeHtml(item.plan_label)}</span>
         </div>
         <p class="muted">${escapeHtml(item.path)}</p>
@@ -106,6 +168,7 @@
         ${actionButtons(item)}
       </article>
     `).join("");
+    syncSelectionUi();
   }
 
   async function loadLanguages() {
@@ -186,9 +249,7 @@
       if (viewBtn) await openView(viewBtn.dataset.view);
       if (editBtn) await openEdit(editBtn.dataset.edit);
       if (deleteBtn) {
-        state.deleteId = deleteBtn.dataset.delete;
-        document.getElementById("delete-text").textContent = `Excluir definitivamente "${deleteBtn.dataset.name}"?`;
-        window.Doors.openOverlay("delete-overlay");
+        openDeleteConfirm([{ id: Number(deleteBtn.dataset.delete), name: deleteBtn.dataset.name }]);
       }
     } catch (error) {
       window.Doors.toast(error.message, "error");
@@ -252,6 +313,25 @@
     window.Doors.openOverlay("form-overlay");
   });
 
+  document.getElementById("btn-bulk-delete").addEventListener("click", () => {
+    if (!state.selected.size) return;
+    openDeleteConfirm([...state.selected.entries()].map(([id, name]) => ({ id, name })));
+  });
+
+  document.addEventListener("change", (event) => {
+    const selectAll = event.target.closest(".select-all");
+    if (selectAll) {
+      const on = selectAll.checked;
+      state.items.forEach((item) => setSelected(item.id, item.app_name, on));
+      syncSelectionUi();
+      return;
+    }
+    const row = event.target.closest(".row-select");
+    if (!row) return;
+    setSelected(Number(row.dataset.id), row.dataset.name, row.checked);
+    syncSelectionUi();
+  });
+
   dockerInput.addEventListener("change", () => {
     dockerLabel.textContent = dockerInput.checked ? "Sim" : "Não";
   });
@@ -287,11 +367,23 @@
   });
 
   document.getElementById("confirm-delete").addEventListener("click", async () => {
-    if (!state.deleteId) return;
+    if (!state.pendingDelete.length) return;
+    const ids = state.pendingDelete.map((item) => item.id);
     try {
-      await window.Doors.request(`/api/applications/${state.deleteId}`, { method: "DELETE" });
+      if (ids.length === 1) {
+        await window.Doors.request(`/api/applications/${ids[0]}`, { method: "DELETE" });
+        window.Doors.toast("Aplicação excluída.", "success");
+      } else {
+        const result = await window.Doors.request("/api/applications/bulk-delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ids }),
+        });
+        window.Doors.toast(result.message, "success");
+      }
+      ids.forEach((id) => state.selected.delete(id));
+      state.pendingDelete = [];
       window.Doors.closeOverlay("delete-overlay");
-      window.Doors.toast("Aplicação excluída.", "success");
       await loadApplications();
     } catch (error) {
       window.Doors.toast(error.message, "error");
@@ -302,7 +394,7 @@
     const query = params();
     query.delete("page");
     query.delete("page_size");
-    return `/api/export/${kind}?${query.toString()}`;
+    return window.Doors.withRoot(`/api/export/${kind}?${query.toString()}`);
   }
 
   document.getElementById("btn-export-csv").addEventListener("click", () => {
@@ -323,7 +415,7 @@
     data.append("file", file);
     window.Doors.setLoading(true);
     try {
-      const response = await fetch("/api/import/xlsx", { method: "POST", body: data });
+      const response = await fetch(window.Doors.withRoot("/api/import/xlsx"), { method: "POST", body: data });
       const payload = await response.json();
       if (!response.ok) throw new Error((payload.detail && payload.detail.message) || "Falha na importação.");
       window.Doors.toast(`${payload.created} registro(s) importado(s).`, "success");
