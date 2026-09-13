@@ -61,6 +61,8 @@ class ApplicationRepository:
             conditions.append(and_(Application.nginx.is_not(None), Application.nginx != ""))
         if uses_nginx is False:
             conditions.append(or_(Application.nginx.is_(None), Application.nginx == ""))
+        # Oculta apps filhas da central de conferências (LoteriasExtras-Conferencias-*)
+        conditions.append(~Application.app_name.ilike("LoteriasExtras-Conferencias-%"))
         if conditions:
             stmt = stmt.where(and_(*conditions))
         return stmt
@@ -135,18 +137,31 @@ class ApplicationRepository:
     def delete(self, application: Application) -> None:
         self.db.delete(application)
 
+    def _visible(self):
+        return ~Application.app_name.ilike("LoteriasExtras-Conferencias-%")
+
     def count_all(self) -> int:
-        return self.db.scalar(select(func.count(Application.id))) or 0
+        return (
+            self.db.scalar(select(func.count(Application.id)).where(self._visible()))
+            or 0
+        )
 
     def count_by_plan(self, plan: str) -> int:
-        return self.db.scalar(select(func.count(Application.id)).where(Application.plan == plan)) or 0
+        return (
+            self.db.scalar(
+                select(func.count(Application.id)).where(
+                    and_(Application.plan == plan, self._visible())
+                )
+            )
+            or 0
+        )
 
     def count_by_language(self, language_name: str) -> int:
         return (
             self.db.scalar(
                 select(func.count(Application.id))
                 .join(Language)
-                .where(Language.name == language_name)
+                .where(and_(Language.name == language_name, self._visible()))
             )
             or 0
         )
@@ -154,7 +169,9 @@ class ApplicationRepository:
     def count_docker(self, uses_docker: bool) -> int:
         return (
             self.db.scalar(
-                select(func.count(Application.id)).where(Application.uses_docker.is_(uses_docker))
+                select(func.count(Application.id)).where(
+                    and_(Application.uses_docker.is_(uses_docker), self._visible())
+                )
             )
             or 0
         )
@@ -163,7 +180,11 @@ class ApplicationRepository:
         return (
             self.db.scalar(
                 select(func.count(Application.id)).where(
-                    and_(Application.nginx.is_not(None), Application.nginx != "")
+                    and_(
+                        Application.nginx.is_not(None),
+                        Application.nginx != "",
+                        self._visible(),
+                    )
                 )
             )
             or 0

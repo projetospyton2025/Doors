@@ -23,6 +23,7 @@ from app.utils.constants import (
     PLAN_LABELS,
     REDIRECT_LINK_LABELS,
     Plan,
+    is_satellite_app,
 )
 from app.utils.validators import (
     ValidationError,
@@ -44,6 +45,7 @@ class ApplicationService:
         self.languages = LanguageRepository(db)
 
     def to_out(self, item: Application) -> ApplicationOut:
+        remoto = item.nginx or ""
         return ApplicationOut(
             id=item.id,
             app_name=item.app_name,
@@ -51,6 +53,7 @@ class ApplicationService:
             door=item.door,
             language=item.language.name,
             nginx=item.nginx,
+            remoto=remoto,
             docker=docker_label(item.uses_docker),
             uses_docker=item.uses_docker,
             uses_nginx=bool(item.nginx),
@@ -159,7 +162,7 @@ class ApplicationService:
         items: list[RedirectLinkOut] = []
         for app in apps:
             candidates = (
-                ("nginx", app.nginx),
+                ("remoto", app.nginx),
                 ("github", app.github),
                 ("drive", app.drive),
             )
@@ -196,6 +199,11 @@ class ApplicationService:
 
     def create(self, payload: ApplicationCreate) -> ApplicationOut:
         data = self._validated_payload(payload)
+        if is_satellite_app(data["app_name"]):
+            raise ValidationError(
+                "app_name",
+                "Apps filhas de LoteriasExtras-Conferencias ficam na central e não devem ser cadastradas individualmente.",
+            )
         if self.applications.get_by_door(data["door"]):
             raise ValidationError("door", "Já existe uma aplicação utilizando esta porta.")
         language = data.pop("language")

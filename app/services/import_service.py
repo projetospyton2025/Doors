@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.schemas.application import ApplicationCreate
 from app.services.application_service import ApplicationService
-from app.utils.constants import EXCEL_PLAN_ALIASES
+from app.utils.constants import EXCEL_PLAN_ALIASES, is_satellite_app
 from app.utils.validators import ValidationError
 
 PLACEHOLDERS = {"", "selecione", None}
@@ -36,6 +36,9 @@ class ImportService:
                     list(row) + [None] * 8
                 )[:8]
                 if self._empty(app_name) and self._empty(path_value) and self._empty(door):
+                    skipped += 1
+                    continue
+                if is_satellite_app(str(app_name or "")):
                     skipped += 1
                     continue
                 try:

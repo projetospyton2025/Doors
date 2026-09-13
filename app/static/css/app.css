@@ -408,7 +408,7 @@ table.data-table {
 .badge.docker-no { background: #f1f3f5; color: var(--status-neutral); }
 .badge.nginx-yes { background: #e3f2fd; color: var(--status-info); }
 .badge.nginx-no { background: #f1f3f5; color: var(--status-neutral); }
-.badge.link-nginx { background: #e3f2fd; color: var(--status-info); }
+.badge.link-remoto { background: #fff8e1; color: #b28704; }
 .badge.link-github { background: #eef1f4; color: var(--dark-color); }
 .badge.link-drive { background: #e8f5e9; color: var(--success-color); }
 

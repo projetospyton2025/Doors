@@ -104,15 +104,58 @@ def test_list_redirect_links(client, sample_payload):
     body = all_links.json()
     assert body["total"] == 3
     types = {item["link_type"] for item in body["items"]}
-    assert types == {"nginx", "github", "drive"}
+    assert types == {"remoto", "github", "drive"}
 
-    nginx_only = client.get("/api/links", params={"link_type": "nginx"})
-    assert nginx_only.status_code == 200
-    assert nginx_only.json()["total"] == 1
-    assert nginx_only.json()["items"][0]["url"] == sample_payload["nginx"]
+    remoto_only = client.get("/api/links", params={"link_type": "remoto"})
+    assert remoto_only.status_code == 200
+    assert remoto_only.json()["total"] == 1
+    assert remoto_only.json()["items"][0]["url"] == sample_payload["nginx"]
 
     work = client.get("/api/links", params={"plan": "work", "q": "marcio"})
     assert work.json()["total"] == 1
+
+
+def test_work_links_seed_not_loaded_in_test_env(client):
+    # Em APP_ENV=test o seed Work não roda automaticamente
+    listed = client.get("/api/applications", params={"q": "STP-Sistema"})
+    assert listed.status_code == 200
+    assert listed.json()["total"] == 0
+
+
+def test_satellite_conference_apps_are_rejected(client, sample_payload):
+    response = client.post(
+        "/api/applications",
+        json={
+            **sample_payload,
+            "app_name": "LoteriasExtras-Conferencias-MegaSena",
+            "door": 5558,
+            "nginx": "",
+        },
+    )
+    assert response.status_code == 422
+
+
+def test_work_remoto_links_can_be_created(client, sample_payload):
+    created = client.post(
+        "/api/applications",
+        json={
+            **sample_payload,
+            "app_name": "STP-SistemaTransportePacientes",
+            "path": r"D:\projetos\python\STP-SistemaTransportePacientes",
+            "door": 5022,
+            "nginx": "https://marciofernandomaia.com.br/stp/",
+        },
+    )
+    assert created.status_code == 201, created.text
+    body = created.json()
+    assert body["plan"] == "work"
+    assert body["remoto"] == "https://marciofernandomaia.com.br/stp/"
+    assert body["nginx"] == body["remoto"]
+
+    links = client.get("/api/links", params={"link_type": "remoto", "q": "stp"})
+    assert links.status_code == 200
+    assert links.json()["total"] == 1
+    assert links.json()["items"][0]["url"].endswith("/stp/")
 
 
 def test_create_language(client):

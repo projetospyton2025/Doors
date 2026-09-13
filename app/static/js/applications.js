@@ -160,7 +160,7 @@
 
   function formatViewValue(label, value) {
     if (!value || value === "—") return "—";
-    if (["NGINX", "GITHUB", "DRIVE"].includes(label)) {
+    if (["REMOTO", "GITHUB", "DRIVE"].includes(label)) {
       return `<a class="external-link" href="${escapeHtml(value)}" target="_blank" rel="noopener">${escapeHtml(value)}</a>`;
     }
     return escapeHtml(value);
@@ -174,7 +174,7 @@
       ["PATH", item.path],
       ["DOOR", item.door],
       ["LANGUAGE", item.language],
-      ["NGINX", item.nginx || "—"],
+      ["REMOTO", item.remoto || item.nginx || "—"],
       ["DOCKER", item.docker],
       ["GITHUB", item.github || "—"],
       ["DRIVE", item.drive || "—"],

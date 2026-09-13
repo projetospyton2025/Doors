@@ -31,6 +31,7 @@ class ApplicationOut(BaseModel):
     door: int
     language: str
     nginx: str | None
+    remoto: str
     docker: Literal["Sim", "Não"]
     uses_docker: bool
     uses_nginx: bool
@@ -93,7 +94,7 @@ class RedirectLinkOut(BaseModel):
     app_name: str
     plan: str
     plan_label: str
-    link_type: Literal["nginx", "github", "drive"]
+    link_type: Literal["remoto", "github", "drive"]
     link_label: str
     url: str
 
