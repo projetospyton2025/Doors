@@ -87,10 +87,10 @@
         <td title="${escapeHtml(item.path)}">${escapeHtml(item.path)}</td>
         <td title="${escapeHtml(item.door)}">${escapeHtml(item.door)}</td>
         <td title="${escapeHtml(item.language)}"><span class="badge ${escapeHtml(item.language).toLowerCase()}">${escapeHtml(item.language)}</span></td>
-        <td title="${escapeHtml(item.nginx || "")}">${item.nginx ? `<a href="${escapeHtml(item.nginx)}" target="_blank" rel="noopener">${escapeHtml(item.nginx)}</a>` : "—"}</td>
+        <td title="${escapeHtml(item.nginx || "")}">${item.nginx ? `<a class="external-link" href="${escapeHtml(item.nginx)}" target="_blank" rel="noopener">${escapeHtml(item.nginx)}</a>` : "—"}</td>
         <td title="${escapeHtml(item.docker)}"><span class="badge ${item.uses_docker ? "docker-yes" : "docker-no"}">${escapeHtml(item.docker)}</span></td>
-        <td title="${escapeHtml(item.github || "")}">${item.github ? escapeHtml(item.github) : "—"}</td>
-        <td title="${escapeHtml(item.drive || "")}">${item.drive ? escapeHtml(item.drive) : "—"}</td>
+        <td title="${escapeHtml(item.github || "")}">${item.github ? `<a class="external-link" href="${escapeHtml(item.github)}" target="_blank" rel="noopener">${escapeHtml(item.github)}</a>` : "—"}</td>
+        <td title="${escapeHtml(item.drive || "")}">${item.drive ? `<a class="external-link" href="${escapeHtml(item.drive)}" target="_blank" rel="noopener">${escapeHtml(item.drive)}</a>` : "—"}</td>
         <td>${actionButtons(item)}</td>
       </tr>
     `).join("");
@@ -158,6 +158,14 @@
     window.Doors.openOverlay("form-overlay");
   }
 
+  function formatViewValue(label, value) {
+    if (!value || value === "—") return "—";
+    if (["NGINX", "GITHUB", "DRIVE"].includes(label)) {
+      return `<a class="external-link" href="${escapeHtml(value)}" target="_blank" rel="noopener">${escapeHtml(value)}</a>`;
+    }
+    return escapeHtml(value);
+  }
+
   async function openView(id) {
     const item = await window.Doors.request(`/api/applications/${id}`);
     const rows = [
@@ -172,7 +180,7 @@
       ["DRIVE", item.drive || "—"],
     ];
     document.getElementById("view-body").innerHTML = rows.map(([label, value]) => (
-      `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`
+      `<dt>${escapeHtml(label)}</dt><dd>${formatViewValue(label, value)}</dd>`
     )).join("");
     document.getElementById("view-title").textContent = item.app_name;
     window.Doors.openOverlay("view-overlay");

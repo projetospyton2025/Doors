@@ -48,3 +48,12 @@ EXPORT_COLUMNS = (
     "GITHUB",
     "DRIVE",
 )
+
+# Tipos de link de direcionamento alinhados às colunas do Doors.xlsx
+REDIRECT_LINK_TYPES = (
+    {"key": "nginx", "label": "NGINX", "excel": "NGINX"},
+    {"key": "github", "label": "GITHUB", "excel": "ACCOUNT → GITHUB"},
+    {"key": "drive", "label": "DRIVE", "excel": "ACCOUNT → DRIVE"},
+)
+
+REDIRECT_LINK_LABELS = {item["key"]: item["label"] for item in REDIRECT_LINK_TYPES}

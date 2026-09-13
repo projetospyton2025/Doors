@@ -14,6 +14,7 @@ from app.schemas.application import (
     LanguageOut,
     MessageOut,
     PaginatedApplications,
+    RedirectLinksResponse,
 )
 from app.services.application_service import ApplicationService
 from app.services.export_service import ExportService
@@ -118,6 +119,19 @@ def delete_application(
 @router.get("/dashboard", response_model=DashboardStats)
 def dashboard(service: ApplicationService = Depends(get_application_service)) -> DashboardStats:
     return service.dashboard()
+
+
+@router.get("/links", response_model=RedirectLinksResponse)
+def list_redirect_links(
+    q: str | None = Query(default=None),
+    plan: str | None = Query(default=None),
+    link_type: str | None = Query(default=None),
+    service: ApplicationService = Depends(get_application_service),
+) -> RedirectLinksResponse:
+    try:
+        return service.list_redirect_links(plan=plan, link_type=link_type, q=q)
+    except ValidationError as exc:
+        raise _http_error(exc) from exc
 
 
 @router.get("/languages", response_model=list[LanguageOut])

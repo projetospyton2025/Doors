@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from app.config import BASE_DIR
-from app.utils.constants import PLANS
+from app.utils.constants import PLANS, REDIRECT_LINK_TYPES
 
 templates = Jinja2Templates(directory=str(BASE_DIR / "app" / "templates"))
 router = APIRouter()
@@ -24,6 +24,15 @@ def applications_page(request: Request) -> HTMLResponse:
         request,
         "applications.html",
         {"page": "applications", "plans": PLANS},
+    )
+
+
+@router.get("/links", response_class=HTMLResponse)
+def links_page(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request,
+        "links.html",
+        {"page": "links", "plans": PLANS, "link_types": REDIRECT_LINK_TYPES},
     )
 
 

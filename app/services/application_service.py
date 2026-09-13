@@ -14,8 +14,16 @@ from app.schemas.application import (
     LanguageCreate,
     LanguageOut,
     PaginatedApplications,
+    RedirectLinkOut,
+    RedirectLinksResponse,
 )
-from app.utils.constants import LANGUAGE_HTML, LANGUAGE_PYTHON, PLAN_LABELS, Plan
+from app.utils.constants import (
+    LANGUAGE_HTML,
+    LANGUAGE_PYTHON,
+    PLAN_LABELS,
+    REDIRECT_LINK_LABELS,
+    Plan,
+)
 from app.utils.validators import (
     ValidationError,
     docker_label,
@@ -127,6 +135,58 @@ class ApplicationService:
             order=filters.order,
         )
         return [self.to_out(item) for item in items]
+
+    def list_redirect_links(
+        self,
+        plan: str | None = None,
+        link_type: str | None = None,
+        q: str | None = None,
+    ) -> RedirectLinksResponse:
+        plan_key = normalize_plan(plan) if plan else None
+        type_key = (link_type or "").strip().lower() or None
+        if type_key and type_key not in REDIRECT_LINK_LABELS:
+            raise ValidationError("link_type", "Tipo de link inválido.")
+        apps = self.applications.list_all_filtered(
+            q=None,
+            plan=plan_key,
+            language=None,
+            uses_docker=None,
+            uses_nginx=None,
+            sort="app_name",
+            order="asc",
+        )
+        search = (q or "").strip().lower()
+        items: list[RedirectLinkOut] = []
+        for app in apps:
+            candidates = (
+                ("nginx", app.nginx),
+                ("github", app.github),
+                ("drive", app.drive),
+            )
+            for key, url in candidates:
+                if not url:
+                    continue
+                if type_key and key != type_key:
+                    continue
+                label = REDIRECT_LINK_LABELS[key]
+                plan_label = PLAN_LABELS.get(app.plan, app.plan)
+                if search and not any(
+                    search in str(value).lower()
+                    for value in (app.app_name, url, label, plan_label, app.plan)
+                ):
+                    continue
+                items.append(
+                    RedirectLinkOut(
+                        application_id=app.id,
+                        app_name=app.app_name,
+                        plan=app.plan,
+                        plan_label=plan_label,
+                        link_type=key,  # type: ignore[arg-type]
+                        link_label=label,
+                        url=url,
+                    )
+                )
+        return RedirectLinksResponse(items=items, total=len(items))
 
     def get(self, application_id: int) -> ApplicationOut:
         item = self.applications.get(application_id)

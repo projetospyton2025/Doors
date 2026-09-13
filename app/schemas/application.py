@@ -88,5 +88,20 @@ class MessageOut(BaseModel):
     message: str
 
 
+class RedirectLinkOut(BaseModel):
+    application_id: int
+    app_name: str
+    plan: str
+    plan_label: str
+    link_type: Literal["nginx", "github", "drive"]
+    link_label: str
+    url: str
+
+
+class RedirectLinksResponse(BaseModel):
+    items: list[RedirectLinkOut]
+    total: int
+
+
 def docker_to_label(uses_docker: bool) -> str:
     return DOCKER_YES if uses_docker else DOCKER_NO

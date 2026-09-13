@@ -408,6 +408,42 @@ table.data-table {
 .badge.docker-no { background: #f1f3f5; color: var(--status-neutral); }
 .badge.nginx-yes { background: #e3f2fd; color: var(--status-info); }
 .badge.nginx-no { background: #f1f3f5; color: var(--status-neutral); }
+.badge.link-nginx { background: #e3f2fd; color: var(--status-info); }
+.badge.link-github { background: #eef1f4; color: var(--dark-color); }
+.badge.link-drive { background: #e8f5e9; color: var(--success-color); }
+
+.legend-card .legend-title {
+  margin: 0 0 12px;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.legend-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.legend-label {
+  margin: 0 0 8px;
+  color: var(--muted-color);
+  font-size: var(--font-size-xxs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.external-link {
+  color: #0563c1;
+  word-break: break-all;
+}
+
+.external-link:hover {
+  color: #054a91;
+}
+
+.data-table col.col-link-type { width: 12%; }
+.data-table col.col-url { width: 48%; }
 
 .data-table td:last-child,
 .data-table th:last-child {

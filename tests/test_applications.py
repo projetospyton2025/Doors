@@ -85,8 +85,34 @@ def test_dashboard_counts(client, sample_payload):
 def test_pages_render(client):
     assert client.get("/").status_code == 200
     assert client.get("/applications").status_code == 200
+    assert client.get("/links").status_code == 200
     assert client.get("/settings").status_code == 200
     assert client.get("/health").status_code == 200
+
+
+def test_list_redirect_links(client, sample_payload):
+    client.post(
+        "/api/applications",
+        json={
+            **sample_payload,
+            "github": "https://github.com/example/audio",
+            "drive": "https://drive.google.com/drive/folders/abc",
+        },
+    )
+    all_links = client.get("/api/links")
+    assert all_links.status_code == 200
+    body = all_links.json()
+    assert body["total"] == 3
+    types = {item["link_type"] for item in body["items"]}
+    assert types == {"nginx", "github", "drive"}
+
+    nginx_only = client.get("/api/links", params={"link_type": "nginx"})
+    assert nginx_only.status_code == 200
+    assert nginx_only.json()["total"] == 1
+    assert nginx_only.json()["items"][0]["url"] == sample_payload["nginx"]
+
+    work = client.get("/api/links", params={"plan": "work", "q": "marcio"})
+    assert work.json()["total"] == 1
 
 
 def test_create_language(client):
