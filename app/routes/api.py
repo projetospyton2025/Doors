@@ -19,6 +19,7 @@ from app.schemas.application import (
 from app.services.application_service import ApplicationService
 from app.services.export_service import ExportService
 from app.services.import_service import ImportService
+from app.services.links_sync_service import LinksSyncService, is_links_workbook
 from app.utils.validators import ValidationError
 from app.routes.deps import get_application_service, get_export_service
 from app.database.session import get_db
@@ -192,7 +193,12 @@ def import_xlsx(
         tmp.write(file.file.read())
         tmp_path = Path(tmp.name)
     try:
+        if "link" in filename or is_links_workbook(tmp_path):
+            result = LinksSyncService(db).sync_file(tmp_path)
+            result["source"] = "links.xlsx"
+            return result
         result = ImportService(db).import_xlsx(tmp_path)
+        result["source"] = "doors.xlsx"
         return result
     finally:
         tmp_path.unlink(missing_ok=True)

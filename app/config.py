@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./data/doors.db"
     allowed_hosts: str = "*"
     doors_xlsx_path: str = "./Doors.xlsx"
+    links_xlsx_path: str = "./links.xlsx"
     app_host: str = "127.0.0.1"
     app_port: int = 5333
 
@@ -38,6 +39,13 @@ class Settings(BaseSettings):
     @property
     def xlsx_path(self) -> Path:
         candidate = Path(self.doors_xlsx_path)
+        if not candidate.is_absolute():
+            candidate = BASE_DIR / candidate
+        return candidate
+
+    @property
+    def links_path(self) -> Path:
+        candidate = Path(self.links_xlsx_path)
         if not candidate.is_absolute():
             candidate = BASE_DIR / candidate
         return candidate

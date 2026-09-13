@@ -177,3 +177,34 @@ def test_import_original_excel(client):
     assert response.json()["created"] >= 1
     listed = client.get("/api/applications", params={"q": "AudioTo-txt"})
     assert listed.json()["total"] >= 1
+
+
+def test_import_links_xlsx(client):
+    from pathlib import Path
+    from app.config import BASE_DIR
+
+    links = BASE_DIR / "links.xlsx"
+    if not links.exists():
+        return
+    with links.open("rb") as handle:
+        response = client.post(
+            "/api/import/xlsx",
+            files={"file": ("links.xlsx", handle, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")},
+        )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["source"] == "links.xlsx"
+    assert body["total_in_file"] == 17
+    assert body["created"] >= 1
+
+    work = client.get("/api/applications", params={"plan": "work", "q": "STP-Sistema"})
+    assert work.json()["total"] >= 1
+    assert work.json()["items"][0]["remoto"].endswith("/stp/")
+
+    lotteries = client.get("/api/applications", params={"plan": "lotteries", "q": "LoteriasExtras-conferencias"})
+    assert lotteries.json()["total"] == 1
+    assert "lotocheck" in (lotteries.json()["items"][0]["remoto"] or "")
+
+    # filhas de conferência não entram
+    child = client.get("/api/applications", params={"q": "LoteriasExtras-Conferencias-MegaSena"})
+    assert child.json()["total"] == 0

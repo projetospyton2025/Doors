@@ -65,34 +65,6 @@ REDIRECT_LINK_TYPES = (
 
 REDIRECT_LINK_LABELS = {item["key"]: item["label"] for item in REDIRECT_LINK_TYPES}
 
-# Apps Work vindas do links.xlsx (categoria trabalho / fonte dourada)
-WORK_LINKS_SEED = (
-    {
-        "app_name": "STP-SistemaTransportePacientes",
-        "path": r"D:\projetos\python\STP-SistemaTransportePacientes",
-        "door": 5022,
-        "nginx": "https://marciofernandomaia.com.br/stp/",
-    },
-    {
-        "app_name": "STID-SistemaTramiteInternoDocumentos",
-        "path": r"D:\projetos\python\STID-SistemaTramiteInternoDocumentos",
-        "door": 5011,
-        "nginx": "https://marciofernandomaia.com.br/stid/",
-    },
-    {
-        "app_name": "SPPE-SistemaParceriaPrefeituraEntidades",
-        "path": r"D:\projetos\python\SPPE-SistemaParceriaPrefeituraEntidades",
-        "door": 5021,
-        "nginx": "https://marciofernandomaia.com.br/sppe/",
-    },
-    {
-        "app_name": "SCP-SistemaControlePatrimonio",
-        "path": r"D:\projetos\python\SCP-SistemaControlePatrimonio",
-        "door": 5050,
-        "nginx": "https://marciofernandomaia.com.br/scp/",
-    },
-)
-
 
 def is_satellite_app(app_name: str) -> bool:
     """True para apps filhas de conferência (ex.: ...-MegaSena); a central fica de fora."""
