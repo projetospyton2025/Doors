@@ -359,6 +359,7 @@ table.data-table {
   white-space: nowrap;
 }
 
+.data-table col.col-select { width: 3%; }
 .data-table col.col-plan { width: 8%; }
 .data-table col.col-name { width: 11%; }
 .data-table col.col-path { width: 22%; }
@@ -677,4 +678,61 @@ table.data-table {
   .grid-stats {
     grid-template-columns: 1fr;
   }
+}
+
+
+.selection-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background: var(--turquoise-95, #f0faf8);
+}
+
+.selection-bar[hidden] {
+  display: none !important;
+}
+
+.selection-count {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+}
+
+.data-table th.col-select-head,
+.data-table td.col-select {
+  width: 40px;
+  text-align: center;
+  overflow: visible;
+}
+
+.data-table tbody tr.is-selected {
+  background: rgba(13, 148, 136, 0.08);
+}
+
+.row-check,
+#select-all {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--turquoise-25, #0d9488);
+}
+
+.card.is-selected {
+  outline: 2px solid var(--turquoise-25, #0d9488);
+}
+
+.card-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-button.danger span {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
 }

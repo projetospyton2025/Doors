@@ -208,3 +208,17 @@ def test_import_links_xlsx(client):
     # filhas de conferência não entram
     child = client.get("/api/applications", params={"q": "LoteriasExtras-Conferencias-MegaSena"})
     assert child.json()["total"] == 0
+
+
+def test_bulk_delete_applications(client, sample_payload):
+    first = client.post("/api/applications", json=sample_payload).json()
+    second = client.post(
+        "/api/applications",
+        json={**sample_payload, "app_name": "Portal", "path": "M:\\site", "door": 8080, "language": "HTML", "plan": "personal"},
+    ).json()
+    response = client.post("/api/applications/bulk-delete", json={"ids": [first["id"], second["id"]]})
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["deleted"] == 2
+    assert client.get(f"/api/applications/{first['id']}").status_code == 404
+    assert client.get(f"/api/applications/{second['id']}").status_code == 404

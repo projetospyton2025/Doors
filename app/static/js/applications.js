@@ -9,7 +9,10 @@
     order: "asc",
     page: 1,
     pageSize: 10,
-    deleteId: null,
+    deleteIds: [],
+    selected: new Set(),
+    pageItems: [],
+    lastCheckedIndex: null,
   };
 
   const body = document.getElementById("apps-body");
@@ -19,6 +22,9 @@
   const dockerInput = form.elements.docker;
   const dockerLabel = document.getElementById("docker-label");
   const searchInput = document.getElementById("search-input");
+  const selectAll = document.getElementById("select-all");
+  const selectionBar = document.getElementById("selection-bar");
+  const selectionCount = document.getElementById("selection-count");
   let searchTimer = null;
 
   function params() {
@@ -58,16 +64,36 @@
       .replaceAll('"', "&quot;");
   }
 
+  function selectedIds() {
+    return Array.from(state.selected);
+  }
+
+  function setSelected(id, checked) {
+    const numericId = Number(id);
+    if (checked) state.selected.add(numericId);
+    else state.selected.delete(numericId);
+  }
+
+  function updateSelectionBar() {
+    const count = state.selected.size;
+    selectionCount.textContent = count === 1 ? "1 selecionada" : `${count} selecionadas`;
+    selectionBar.hidden = count === 0;
+    const pageIds = state.pageItems.map((item) => item.id);
+    const selectedOnPage = pageIds.filter((id) => state.selected.has(id));
+    selectAll.checked = pageIds.length > 0 && selectedOnPage.length === pageIds.length;
+    selectAll.indeterminate = selectedOnPage.length > 0 && selectedOnPage.length < pageIds.length;
+  }
+
   function actionButtons(item) {
     return `
       <div class="cell-actions">
-        <button class="icon-button ghost" data-view="${item.id}" title="Visualizar" aria-label="Visualizar">
+        <button class="icon-button ghost" type="button" data-view="${item.id}" title="Visualizar" aria-label="Visualizar">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
         </button>
-        <button class="icon-button ghost" data-edit="${item.id}" title="Editar" aria-label="Editar">
+        <button class="icon-button ghost" type="button" data-edit="${item.id}" title="Editar" aria-label="Editar">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
         </button>
-        <button class="icon-button danger" data-delete="${item.id}" data-name="${escapeHtml(item.app_name)}" title="Excluir" aria-label="Excluir">
+        <button class="icon-button danger" type="button" data-delete="${item.id}" data-name="${escapeHtml(item.app_name)}" title="Excluir" aria-label="Excluir">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path></svg>
         </button>
       </div>
@@ -75,13 +101,21 @@
   }
 
   function renderItems(items) {
+    state.pageItems = items;
     if (!items.length) {
-      body.innerHTML = `<tr><td colspan="10"><div class="empty-state">Nenhum registro encontrado.</div></td></tr>`;
+      body.innerHTML = `<tr><td colspan="11"><div class="empty-state">Nenhum registro encontrado.</div></td></tr>`;
       cards.innerHTML = `<div class="card empty-state">Nenhum registro encontrado.</div>`;
+      updateSelectionBar();
       return;
     }
-    body.innerHTML = items.map((item) => `
-      <tr>
+
+    body.innerHTML = items.map((item, index) => {
+      const checked = state.selected.has(item.id);
+      return `
+      <tr class="${checked ? "is-selected" : ""}" data-id="${item.id}">
+        <td class="col-select">
+          <input class="row-check" type="checkbox" data-id="${item.id}" data-index="${index}" ${checked ? "checked" : ""} title="Selecionar" aria-label="Selecionar ${escapeHtml(item.app_name)}">
+        </td>
         <td title="${escapeHtml(item.plan_label)}"><span class="badge ${escapeHtml(item.plan)}">${escapeHtml(item.plan_label)}</span></td>
         <td title="${escapeHtml(item.app_name)}">${escapeHtml(item.app_name)}</td>
         <td title="${escapeHtml(item.path)}">${escapeHtml(item.path)}</td>
@@ -92,31 +126,39 @@
         <td title="${escapeHtml(item.github || "")}">${item.github ? `<a class="external-link" href="${escapeHtml(item.github)}" target="_blank" rel="noopener">${escapeHtml(item.github)}</a>` : "—"}</td>
         <td title="${escapeHtml(item.drive || "")}">${item.drive ? `<a class="external-link" href="${escapeHtml(item.drive)}" target="_blank" rel="noopener">${escapeHtml(item.drive)}</a>` : "—"}</td>
         <td>${actionButtons(item)}</td>
-      </tr>
-    `).join("");
+      </tr>`;
+    }).join("");
 
-    cards.innerHTML = items.map((item) => `
-      <article class="card">
-        <div class="toolbar" style="justify-content:space-between">
-          <strong>${escapeHtml(item.app_name)}</strong>
+    cards.innerHTML = items.map((item, index) => {
+      const checked = state.selected.has(item.id);
+      return `
+      <article class="card ${checked ? "is-selected" : ""}" data-id="${item.id}">
+        <div class="toolbar" style="justify-content:space-between;gap:8px">
+          <label class="card-select">
+            <input class="row-check" type="checkbox" data-id="${item.id}" data-index="${index}" ${checked ? "checked" : ""} title="Selecionar" aria-label="Selecionar ${escapeHtml(item.app_name)}">
+            <strong>${escapeHtml(item.app_name)}</strong>
+          </label>
           <span class="badge ${escapeHtml(item.plan)}">${escapeHtml(item.plan_label)}</span>
         </div>
         <p class="muted">${escapeHtml(item.path)}</p>
         <p>Door <strong>${escapeHtml(item.door)}</strong> · ${escapeHtml(item.language)} · Docker ${escapeHtml(item.docker)}</p>
         ${actionButtons(item)}
-      </article>
-    `).join("");
+      </article>`;
+    }).join("");
+
+    updateSelectionBar();
   }
 
   async function loadLanguages() {
     const languages = await window.Doors.request("/api/languages");
-    const select = form.elements.language;
-    select.innerHTML = languages.map((item) => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.name)}</option>`).join("");
+    form.elements.language.innerHTML = languages
+      .map((item) => `<option value="${escapeHtml(item.name)}">${escapeHtml(item.name)}</option>`)
+      .join("");
   }
 
   async function loadApplications() {
     const data = await window.Doors.request(`/api/applications?${params().toString()}`);
-    renderItems(data.items);
+    renderItems(data.items || []);
     pageInfo.textContent = data.total
       ? `${data.total} registro(s) · página ${data.page} de ${data.pages}`
       : "Nenhum registro";
@@ -147,7 +189,7 @@
     form.elements.nginx.value = item && item.nginx ? item.nginx : "";
     form.elements.github.value = item && item.github ? item.github : "";
     form.elements.drive.value = item && item.drive ? item.drive : "";
-    dockerInput.checked = item ? item.uses_docker : false;
+    dockerInput.checked = item ? Boolean(item.uses_docker) : false;
     dockerLabel.textContent = dockerInput.checked ? "Sim" : "Não";
     document.getElementById("form-title").textContent = item ? item.app_name : "Nova aplicação";
   }
@@ -179,11 +221,47 @@
       ["GITHUB", item.github || "—"],
       ["DRIVE", item.drive || "—"],
     ];
-    document.getElementById("view-body").innerHTML = rows.map(([label, value]) => (
-      `<dt>${escapeHtml(label)}</dt><dd>${formatViewValue(label, value)}</dd>`
-    )).join("");
+    document.getElementById("view-body").innerHTML = rows
+      .map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${formatViewValue(label, value)}</dd>`)
+      .join("");
     document.getElementById("view-title").textContent = item.app_name;
     window.Doors.openOverlay("view-overlay");
+  }
+
+  function openDeleteConfirm(ids, label) {
+    state.deleteIds = ids.map(Number);
+    const title = document.getElementById("delete-title");
+    const text = document.getElementById("delete-text");
+    if (state.deleteIds.length > 1) {
+      title.textContent = "Excluir aplicações";
+      text.textContent = `Excluir definitivamente ${state.deleteIds.length} aplicações selecionadas?`;
+    } else {
+      title.textContent = "Excluir aplicação";
+      text.textContent = `Excluir definitivamente "${label}"?`;
+    }
+    window.Doors.openOverlay("delete-overlay");
+  }
+
+  function applyRowSelection(checkbox, event) {
+    const id = Number(checkbox.dataset.id);
+    const index = Number(checkbox.dataset.index);
+    const checked = checkbox.checked;
+
+    if (event.shiftKey && state.lastCheckedIndex !== null && !Number.isNaN(index)) {
+      const start = Math.min(state.lastCheckedIndex, index);
+      const end = Math.max(state.lastCheckedIndex, index);
+      for (let i = start; i <= end; i += 1) {
+        const item = state.pageItems[i];
+        if (item) setSelected(item.id, checked);
+      }
+      renderItems(state.pageItems);
+    } else {
+      setSelected(id, checked);
+      const row = checkbox.closest("tr, article.card");
+      if (row) row.classList.toggle("is-selected", checked);
+      updateSelectionBar();
+    }
+    state.lastCheckedIndex = Number.isNaN(index) ? null : index;
   }
 
   document.addEventListener("click", async (event) => {
@@ -193,20 +271,54 @@
     try {
       if (viewBtn) await openView(viewBtn.dataset.view);
       if (editBtn) await openEdit(editBtn.dataset.edit);
-      if (deleteBtn) {
-        state.deleteId = deleteBtn.dataset.delete;
-        document.getElementById("delete-text").textContent = `Excluir definitivamente "${deleteBtn.dataset.name}"?`;
-        window.Doors.openOverlay("delete-overlay");
-      }
+      if (deleteBtn) openDeleteConfirm([deleteBtn.dataset.delete], deleteBtn.dataset.name);
     } catch (error) {
       window.Doors.toast(error.message, "error");
     }
+  });
+
+  document.addEventListener("click", (event) => {
+    const checkbox = event.target.closest(".row-check");
+    if (!checkbox) return;
+    // Ensure shift-click range works even when native change lacks shift in some cases
+    if (event.shiftKey) {
+      // let the change handler run with shift preserved via synthetic flag
+      checkbox.dataset.shift = "1";
+    }
+  }, true);
+
+  document.addEventListener("change", (event) => {
+    const checkbox = event.target.closest(".row-check");
+    if (!checkbox) return;
+    const fakeEvent = { shiftKey: event.shiftKey || checkbox.dataset.shift === "1" };
+    checkbox.dataset.shift = "";
+    applyRowSelection(checkbox, fakeEvent);
+  });
+
+  selectAll.addEventListener("change", () => {
+    const checked = selectAll.checked;
+    state.pageItems.forEach((item) => setSelected(item.id, checked));
+    renderItems(state.pageItems);
+  });
+
+  document.getElementById("btn-clear-selection").addEventListener("click", () => {
+    state.selected.clear();
+    state.lastCheckedIndex = null;
+    renderItems(state.pageItems);
+  });
+
+  document.getElementById("btn-bulk-delete").addEventListener("click", () => {
+    const ids = selectedIds();
+    if (!ids.length) return;
+    openDeleteConfirm(ids, `${ids.length} aplicações`);
   });
 
   document.querySelectorAll(".plan-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       state.plan = tab.dataset.plan;
       state.page = 1;
+      state.selected.clear();
+      state.lastCheckedIndex = null;
       document.querySelectorAll(".plan-tab").forEach((item) => item.classList.toggle("is-active", item === tab));
       loadApplications().catch((error) => window.Doors.toast(error.message, "error"));
     });
@@ -217,6 +329,8 @@
       const key = chip.dataset.filter;
       state[key] = state[key] === chip.dataset.value ? "" : chip.dataset.value;
       state.page = 1;
+      state.selected.clear();
+      state.lastCheckedIndex = null;
       document.querySelectorAll(`.chip[data-filter="${key}"]`).forEach((item) => {
         item.classList.toggle("is-active", item.dataset.value === state[key]);
       });
@@ -241,6 +355,8 @@
     searchTimer = setTimeout(() => {
       state.q = searchInput.value.trim();
       state.page = 1;
+      state.selected.clear();
+      state.lastCheckedIndex = null;
       loadApplications().catch((error) => window.Doors.toast(error.message, "error"));
     }, 250);
   });
@@ -295,11 +411,18 @@
   });
 
   document.getElementById("confirm-delete").addEventListener("click", async () => {
-    if (!state.deleteId) return;
+    if (!state.deleteIds.length) return;
     try {
-      await window.Doors.request(`/api/applications/${state.deleteId}`, { method: "DELETE" });
+      const result = await window.Doors.request("/api/applications/bulk-delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: state.deleteIds }),
+      });
+      state.deleteIds.forEach((id) => state.selected.delete(Number(id)));
+      state.deleteIds = [];
+      state.lastCheckedIndex = null;
       window.Doors.closeOverlay("delete-overlay");
-      window.Doors.toast("Aplicação excluída.", "success");
+      window.Doors.toast(result.message || "Aplicação(ões) excluída(s).", "success");
       await loadApplications();
     } catch (error) {
       window.Doors.toast(error.message, "error");
@@ -335,6 +458,7 @@
       const payload = await response.json();
       if (!response.ok) throw new Error((payload.detail && payload.detail.message) || "Falha na importação.");
       window.Doors.toast(`${payload.created} registro(s) importado(s).`, "success");
+      state.selected.clear();
       await loadApplications();
     } catch (error) {
       window.Doors.toast(error.message, "error");

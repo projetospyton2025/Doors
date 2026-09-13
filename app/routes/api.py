@@ -9,6 +9,8 @@ from app.schemas.application import (
     ApplicationFilters,
     ApplicationOut,
     ApplicationUpdate,
+    BulkDeleteIn,
+    BulkDeleteOut,
     DashboardStats,
     LanguageCreate,
     LanguageOut,
@@ -115,6 +117,25 @@ def delete_application(
         return MessageOut(message="Aplicação excluída.")
     except LookupError as exc:
         raise _http_error(exc) from exc
+
+
+@router.post("/applications/bulk-delete", response_model=BulkDeleteOut)
+def bulk_delete_applications(
+    payload: BulkDeleteIn,
+    service: ApplicationService = Depends(get_application_service),
+) -> BulkDeleteOut:
+    deleted, missing = service.delete_many(payload.ids)
+    if deleted == 0:
+        raise HTTPException(
+            status_code=404,
+            detail={"message": "Nenhuma das aplicações selecionadas foi encontrada."},
+        )
+    label = "aplicação excluída" if deleted == 1 else "aplicações excluídas"
+    return BulkDeleteOut(
+        message=f"{deleted} {label}.",
+        deleted=deleted,
+        missing=missing,
+    )
 
 
 @router.get("/dashboard", response_model=DashboardStats)

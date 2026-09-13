@@ -243,6 +243,20 @@ class ApplicationService:
         self.applications.delete(item)
         self.db.commit()
 
+    def delete_many(self, ids: list[int]) -> tuple[int, list[int]]:
+        unique_ids = list(dict.fromkeys(ids))
+        deleted = 0
+        missing: list[int] = []
+        for application_id in unique_ids:
+            item = self.applications.get(application_id)
+            if item is None:
+                missing.append(application_id)
+                continue
+            self.applications.delete(item)
+            deleted += 1
+        self.db.commit()
+        return deleted, missing
+
     def dashboard(self) -> DashboardStats:
         return DashboardStats(
             total=self.applications.count_all(),

@@ -89,6 +89,16 @@ class MessageOut(BaseModel):
     message: str
 
 
+class BulkDeleteIn(BaseModel):
+    ids: list[int] = Field(..., min_length=1)
+
+
+class BulkDeleteOut(BaseModel):
+    message: str
+    deleted: int
+    missing: list[int] = Field(default_factory=list)
+
+
 class RedirectLinkOut(BaseModel):
     application_id: int
     app_name: str
